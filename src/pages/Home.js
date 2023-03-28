@@ -1,7 +1,7 @@
 import React from "react";
-import image from "../img/newyork.png"
+import BackgroundImage from "../component/BackgroundImage";
 
-export default function Home() {
+export default function Home(props) {
 
   const handelClickLoginPage = (e) => {
     e.preventDefault();
@@ -9,11 +9,11 @@ export default function Home() {
 
   return(
     <form>
-      <div style={{backgroundImage:`url(${image})`,backgroundRepeat:"no-repeat",backgroundSize:"cover"}} display="flex" >
+      <BackgroundImage>
 
       
         <button type="submit" onClick={handelClickLoginPage}>Start</button>
-      </div>
+      </BackgroundImage>
     </form>
   );
 
