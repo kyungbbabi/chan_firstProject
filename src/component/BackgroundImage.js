@@ -1,11 +1,12 @@
 import React from "react";
-import image from "../img/newyork.png"
+import image from "../newyork.png"
 
 export default function BackgroundImage(props) {
   return(
     <>
-      <div style={{backgroundImage:`(url${image})`}} />
-      {/* <div backgroundImage={`${image}`}/> */}
+      <div>
+        <img src={image} width="100%"/>
+      </div>
     </>
   );
 }

@@ -6,8 +6,8 @@ import Register from "./pages/Register";
 function App() {
   
   return (
-    <Home />
-    // <Login />
+    // <Home />
+    <Login />
     // <Register />
   )
 

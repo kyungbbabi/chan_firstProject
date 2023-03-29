@@ -8,9 +8,9 @@ export default function Login(props) {
   }
   
   return (
-    <form style={{alignItems:"center", justifyContent:"flex-start"}} flexDirection="row" postion="relative">
-      <BackgroundImage>    
-        <div style={{textalign:"center", float:"right"}} display="flex" flexDirection="row"> {/* float로 위치 오른쪽 왼쪽 조절가능 */}
+    <form style={{alignItems:"center", justifyContent:"flex-start"}} flexDirection="row">
+      <BackgroundImage />    
+        <div style={{textalign:"center", float:"right", background:"white"}} postion="absolute" flexDirection="row"> {/* float로 위치 오른쪽 왼쪽 조절가능 */}
           <h1>Sign In</h1>
           <div postion="relative">
             <input type="email" placeholder="name@address.com" />
@@ -25,7 +25,6 @@ export default function Login(props) {
           </div>
           <button type="submit" onClick={handleClickLogin}>Sign In</button>
         </div>
-      </BackgroundImage>
       
     </form>
   );
