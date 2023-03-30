@@ -11,7 +11,7 @@ export default function Login(props) {
   return (
     <div>
       <div style={{postion:"relative"}}>  
-        <div style={{position:"absolute"}}> {/* float로 위치 오른쪽 왼쪽 조절가능 */}
+        <div style={{position:"absolute", backgroundColor:"white", display:"grid"}}> {/* float로 위치 오른쪽 왼쪽 조절가능 */}
           <h1>Sign In</h1>
           <div postion="relative">
             <input type="email" placeholder="name@address.com" />
@@ -27,7 +27,7 @@ export default function Login(props) {
           <button type="submit" onClick={handleClickLogin}>Sign In</button>
         </div>
         <div id="img_login"></div>
-        {/* <BackgroundImage /> */}
+        <BackgroundImage />
       </div>
     </div>
   );
