@@ -8,13 +8,12 @@ export default function Home(props) {
   }
 
   return(
-    <form>
-      <BackgroundImage>
+    <div>
+      <BackgroundImage />
 
       
-        <button type="submit" onClick={handelClickLoginPage}>Start</button>
-      </BackgroundImage>
-    </form>
+      <button type="submit" onClick={handelClickLoginPage}>Start</button>
+    </div>
   );
 
 }

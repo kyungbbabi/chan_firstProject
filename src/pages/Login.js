@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "../newyork.png"
 import BackgroundImage from "../component/BackgroundImage";
 
 export default function Login(props) {
@@ -8,9 +9,9 @@ export default function Login(props) {
   }
   
   return (
-    <form style={{alignItems:"center", justifyContent:"flex-start"}} flexDirection="row">
-      <BackgroundImage />    
-        <div style={{textalign:"center", float:"right", background:"white"}} postion="absolute" flexDirection="row"> {/* float로 위치 오른쪽 왼쪽 조절가능 */}
+    <div>
+      <div style={{postion:"relative"}}>  
+        <div style={{position:"absolute"}}> {/* float로 위치 오른쪽 왼쪽 조절가능 */}
           <h1>Sign In</h1>
           <div postion="relative">
             <input type="email" placeholder="name@address.com" />
@@ -25,7 +26,9 @@ export default function Login(props) {
           </div>
           <button type="submit" onClick={handleClickLogin}>Sign In</button>
         </div>
-      
-    </form>
+        <div id="img_login"></div>
+        {/* <BackgroundImage /> */}
+      </div>
+    </div>
   );
 }

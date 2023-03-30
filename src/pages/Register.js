@@ -16,7 +16,7 @@ export default function Register() {
         </div>
         <div postion="relative">
           <label for="floatingInput" postion="absolute">Password</label>
-          <input type="password" placeholder="****" />
+          <input type="password" placeholder="****" />   
         </div>
         <div postion="relative">
           <label for="floatingInput" postion="absolute">Check-Password</label>
