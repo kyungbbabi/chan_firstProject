@@ -8,8 +8,8 @@ export default function Login(props) {
   
   return (
     <>
-      <div postion={"relative"}>  
-        <div position={"absolute"} > {/* float로 위치 오른쪽 왼쪽 조절가능 */}
+      <div>  
+        <div> {/* float로 위치 오른쪽 왼쪽 조절가능 */}
           <h1>Sign In</h1>
           <div>
             <input type="email" placeholder="name@address.com" />
@@ -24,7 +24,6 @@ export default function Login(props) {
           </div>
           <button type="submit" onClick={handleClickLogin}>Sign In</button>
         </div>
-        <div id="img_login"></div>
       </div>
     </>
   );

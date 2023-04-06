@@ -1,4 +1,4 @@
-body{
+.wrapping{
   background-image: url('https://source.unsplash.com/category/nature/');
   background-size: cover;
   min-height: 100vh;
