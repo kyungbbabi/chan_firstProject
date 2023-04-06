@@ -8,8 +8,8 @@ export default function Login(props) {
   
   return (
     <>
-      <div>  
-        <div> {/* float로 위치 오른쪽 왼쪽 조절가능 */}
+      <div style={{position:"relative"}}>  
+        <div style={{postion:"absolute", display:"grid", textAlign:"center", backgroundColor:"white"}}> {/* float로 위치 오른쪽 왼쪽 조절가능 */}
           <h1>Sign In</h1>
           <div>
             <input type="email" placeholder="name@address.com" />
