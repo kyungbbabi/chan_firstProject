@@ -1,8 +1,4 @@
-.bg-img{
-  background-size: cover;
-};
-
-/* .body_img{
+body{
   background-image: url('https://source.unsplash.com/category/nature/');
   background-size: cover;
   min-height: 100vh;
@@ -10,4 +6,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-} */
+}
