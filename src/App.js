@@ -9,10 +9,10 @@ function App() {
   
   return (
     <>
-      <Home />
+      {/* <Home /> */}
       <Login />
-      <Register />
-      <Main />
+      {/* <Register /> */}
+      {/* <Main /> */}
     </>
   )
 

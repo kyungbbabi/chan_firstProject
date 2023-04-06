@@ -1,5 +1,4 @@
 import React from "react";
-import BackgroundImage from "../component/BackgroundImage";
 
 export default function Login(props) {
 
