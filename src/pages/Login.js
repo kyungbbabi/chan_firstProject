@@ -8,23 +8,29 @@ export default function Login(props) {
   
   return (
     <>
-      <div style={{position:"relative"}}>  
-        <div style={{postion:"absolute", display:"grid", textAlign:"center", backgroundColor:"white"}}> {/* float로 위치 오른쪽 왼쪽 조절가능 */}
-          <h1>Sign In</h1>
+      <section style={{position:"relative", justifyContent:"center", alignItem:"center"}}>
+        <div style={{position:"absolute", display:"flex", flexDirection:"row"}}>  
           <div>
-            <input type="email" placeholder="name@address.com" />
-            
+            <div>
+              hi
+            </div>
           </div>
-          <div postion="relative">
-            <input type="password" placeholder="****" />
-            
+          <div style={{display:"grid", textAlign:"center", backgroundColor:"white"}}> {/* float로 위치 오른쪽 왼쪽 조절가능 */}
+            <h1>Sign In</h1>
+            <div>
+              <input type="email" placeholder="name@address.com" />
+            </div>
+            <div postion="relative">
+              <input type="password" placeholder="****" />              
+            </div>
+            <div postion="relative" margin-bottom="1rem">
+              <label><input type="checkbox" />Remember me</label>
+            </div>
+            <button type="submit" onClick={handleClickLogin}>Sign In</button>
           </div>
-          <div postion="relative" margin-bottom="1rem">
-            <label><input type="checkbox" />Remember me</label>
-          </div>
-          <button type="submit" onClick={handleClickLogin}>Sign In</button>
+        
         </div>
-      </div>
+      </section>
     </>
   );
 }
