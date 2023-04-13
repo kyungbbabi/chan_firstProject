@@ -5,7 +5,7 @@ import Login2 from "./pages/Login2"
 import Main from "./pages/Main";
 import Register from "./pages/Register";
 import BackgroundImage from "./component/BackgroundImage";
-import "./style.css"
+
 
 
 

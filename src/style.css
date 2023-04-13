@@ -1,4 +1,4 @@
-body{
+/* body{
   background-image: url('https://source.unsplash.com/category/nature/');
   background-size: cover;
   min-height: 100vh;
@@ -6,16 +6,12 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-input{
-  writing-mode: horizontal-tb;
-}
-
-label .div.loginInput{
-  position: absolute;
-  display: inline-block;
-  top: 0;
-  left: 0;
-  cursor: default;
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
