@@ -53,60 +53,60 @@ export default function BackgroundImage(props) {
 
 
                     <div style={{ position: "relative" }}>
-  <input
-    type="email"
-    id="email-input"
-    value={email}
-    onChange={handleEmailChange}
-    style={{ width: "100%", height: "35px" }}
-    placeholder=" "
-    autoComplete="username"
-  />
-  <label
-    htmlFor="email-input"
-    style={{
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      left: "10px",
-      pointerEvents: "none",
-      color: "#aaa",
-      transition: "0.2s",
-      fontSize: "16px",
-      fontWeight: "normal",
-      fontFamily: "Arial, sans-serif"
-    }}
-  >
-    Email Address
-  </label>
-</div>
-<div style={{ marginBottom: "20px", position: "relative" }}>
-  <input
-    type="password"
-    id="password-input"
-    value={password}
-    onChange={handlePasswordChange}
-    placeholder=" "
-    autoComplete="current-password"
-  />
-  <label
-    htmlFor="password-input"
-    style={{
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      left: "10px",
-      pointerEvents: "none",
-      color: "#aaa",
-      transition: "0.2s",
-      fontSize: "16px",
-      fontWeight: "normal",
-      fontFamily: "Arial, sans-serif"
-    }}
-  >
-    Password
-  </label>
-</div>
+                      <input
+                        type="email"
+                        id="email-input"
+                        value={email}
+                        onChange={handleEmailChange}
+                        style={{ width: "100%", height: "35px" }}
+                        placeholder=" "
+                        autoComplete="username"
+                      />
+                      <label
+                        htmlFor="email-input"
+                        style={{
+                          position: "absolute",
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          left: "10px",
+                          pointerEvents: "none",
+                          color: "#aaa",
+                          transition: "0.2s",
+                          fontSize: "16px",
+                          fontWeight: "normal",
+                          fontFamily: "Arial, sans-serif"
+                        }}
+                      >
+                        Email Address
+                      </label>
+                    </div>
+                    <div style={{ marginBottom: "20px", position: "relative" }}>
+                      <input
+                        type="password"
+                        id="password-input"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        placeholder=" "
+                        autoComplete="current-password"
+                      />
+                      <label
+                        htmlFor="password-input"
+                        style={{
+                          position: "absolute",
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          left: "10px",
+                          pointerEvents: "none",
+                          color: "#aaa",
+                          transition: "0.2s",
+                          fontSize: "16px",
+                          fontWeight: "normal",
+                          fontFamily: "Arial, sans-serif"
+                        }}
+                      >
+                        Password
+                      </label>
+                    </div>
 
 
 
