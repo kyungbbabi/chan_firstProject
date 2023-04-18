@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Routes, Link, Router } from "react-router-dom";
 import axios from "axios"
+import Register from "./Register";
 import "../style.css"
 
 export default function Login(props) {
@@ -14,7 +16,7 @@ export default function Login(props) {
 
   useEffect(() => {
     async function fetchImage() {
-      const response = await fetch("https://source.unsplash.com/category/nature/")
+      const response = await fetch("https://picsum.photos/seed/picsum/800/600")
       setImageUrl(response.url);
     }
     fetchImage();
@@ -107,9 +109,14 @@ export default function Login(props) {
                 <div style={{marginBottom:"20px"}}>
                   <label><input type="checkbox" />Remember me</label>
                 </div>
-                <button type="submit">
+                <button type="submit" style={{marginBottom:"20px"}}>
                   Sign In
                 </button>
+                <div>New Lovebrids?</div>
+                {/* <Router>
+                  <Link to="/register">Create Account</Link>
+                  <Routes path="/Register" component={Register} />
+                </Router> */}
               </form>
             </div>
 
