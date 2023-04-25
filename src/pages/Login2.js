@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Routes, Link, Router } from "react-router-dom";
 import axios from "axios"
 import Register from "./Register";
+import GoogleLogin from 'react-google-login';
+import { gapi } from 'gapi-script';
 import "../style.css"
 
 export default function Login(props) {
@@ -24,22 +26,54 @@ export default function Login(props) {
 
   const loginValidate = async (email, password) => {
     try{
-      const response = await fetch('https://localhost:8080', {
+      const response = await fetch('', {
         method: 'POST',
         headers: {
-          'Content-Type': 'package.json'
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(email, password)
+        body: JSON.stringify({ email: email, password: password })
       });
       if (!response.ok) {
         throw new Error('Login failed.');
       }
       const user = await response.json();
       return user;
-    }catch(error){
+    } catch(error){
       return null;
     }
   }
+
+  const GoogleButton = ({ onSocial}) => {
+
+    const clientId = process.env.REACT_APP_CLIENT_ID
+
+    useEffect(() => {
+      function start() {
+        gapi.Client.init({
+          ClientId,
+          scope: 'email',
+        });
+      }
+
+      gapi.load('client:auth2', start);
+    }, []);
+    
+    const onSuccess = (response) => {
+      
+    }
+
+    const onFailure = (response) => {
+
+    }
+    return(
+      <GoogleLogin
+        ClientId={clientId}
+        buttonText=""
+        onSuccess={onSuccess}
+        onFailure={onFailure}
+      />
+    )
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
