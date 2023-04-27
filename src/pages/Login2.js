@@ -49,8 +49,8 @@ export default function Login(props) {
 
     useEffect(() => {
       function start() {
-        gapi.Client.init({
-          ClientId,
+        gapi.client.init({
+          clientId,
           scope: 'email',
         });
       }
@@ -59,18 +59,42 @@ export default function Login(props) {
     }, []);
     
     const onSuccess = (response) => {
-      
+      // let body = {
+      //   access_token: res.accessToken,
+      //   id_token: res.tokenId,
+      // };
+  
+      // await axios
+      //   .post(`${해당 프로젝트의 서버 도메인}/accounts/rest-auth/google/`, body, {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   })
+      //   .then((response) => {
+      //     console.log(response);
+      //     localStorage.setItem("accessToken", response.data.access_token);
+      //     navigate("/");
+      //   })
+      //   .catch((error) => console.log(error));
     }
 
     const onFailure = (response) => {
-
+      // console.log("error", response);
     }
+    
+    // gapi.load("client:auth2", () => {
+    //   gapi.client.init({
+    //     clientId: `${발급받은 구글 클라이언트 아이디}.apps.googleusercontent.com`,
+    //     plugin_name: "chat",
+    //   });
+    // });
+
     return(
       <GoogleLogin
-        ClientId={clientId}
-        buttonText=""
+        clientId={clientId}
         onSuccess={onSuccess}
         onFailure={onFailure}
+        buttonText="Continue With Google"
       />
     )
   };
@@ -146,11 +170,12 @@ export default function Login(props) {
                 <button type="submit" style={{marginBottom:"20px"}}>
                   Sign In
                 </button>
-                <div>New Lovebrids?</div>
+                <div style={{marginBottom:"20px"}}>New Lovebrids?</div>
                 {/* <Router>
                   <Link to="/register">Create Account</Link>
                   <Routes path="/Register" component={Register} />
                 </Router> */}
+                <GoogleButton />
               </form>
             </div>
 
