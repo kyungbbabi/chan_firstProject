@@ -8,7 +8,7 @@ import "../style.css"
 
 export default function Login(props) {
   
-  //chat GPT가 만든거
+  // chat GPT가 만든거
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,10 +16,18 @@ export default function Login(props) {
   
   const [imageUrl, setImageUrl] = useState("");
 
+  // useEffect(() => {
+  //   async function fetchImage() {
+  //     const response = await fetch("https://picsum.photos/seed/picsum/800/600")
+  //     setImageUrl(response.url);
+  //   }
+  //   fetchImage();
+  // }, []);
+
   useEffect(() => {
     async function fetchImage() {
-      const response = await fetch("https://picsum.photos/seed/picsum/800/600")
-      setImageUrl(response.url);
+      const response = await axios.get("https://source.unsplash.com/random/")
+      setImageUrl(response.request.responseURL);
     }
     fetchImage();
   }, []);
@@ -43,7 +51,7 @@ export default function Login(props) {
     }
   }
 
-  const GoogleButton = ({ onSocial}) => {
+  const GoogleButton = ({ onSocial }) => {
 
     const clientId = process.env.REACT_APP_CLIENT_ID
 
@@ -61,7 +69,7 @@ export default function Login(props) {
     const onSuccess = (response) => {
       // let body = {
       //   access_token: res.accessToken,
-      //   id_token: res.tokenId,
+      //   id_token: res.tokenId,  
       // };
   
       // await axios
@@ -94,7 +102,7 @@ export default function Login(props) {
         clientId={clientId}
         onSuccess={onSuccess}
         onFailure={onFailure}
-        buttonText="Continue With Google"
+        buttonText="Sign in With Google"
       />
     )
   };
@@ -143,13 +151,13 @@ export default function Login(props) {
             
             <img src={imageUrl} alt="Nature"  style={{width:"100%", height:"100%"}}/>
             
-            <div style={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center" ,backgroundColor:"wheat", width:"50%", height:"100%"}}>
-              <form onSubmit={handleSubmit} style={{display:"inline-block", textAlign:"center"}}>
+            <div style={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center",backgroundColor:"white", width:"50%", height:"100%"}}>
+              <form onSubmit={handleSubmit} id="login-form">
                 <h1>Sign In</h1>
                 <div style={{position:"relative", display:"inline-block"}}>
                   <input type="email" id="email-input" value={email} onChange={handleEmailChange} placeholder=" " autoComplete="username" 
                          style={{height:"2.5rem", padding:"0.375rem 0.75rem", fontSize:"1rem", fontWeight:"400", lineHeight:"1.5", color:"#495057", 
-                                 border:"1px solid #ced4da", borderRadius:"0.25rem"}} />
+                                 border:"none", borderBottom: "1px solid #ced4da" ,borderRadius:"0.25rem"}} />
                     <label style={{position:"absolute", top:"1.75rem", left:"0.75rem", display:"inline-block", color:email ? "#E0E0E0" : "#495057", 
                                    textAlign:"left", transform:email ? "translateY(-1.5rem)" : "translateY(-50%)"}}>
                       Email Address
@@ -158,24 +166,26 @@ export default function Login(props) {
                 <div style={{position:"relative", marginBottom:"20px"}}>
                   <input type="password" id="password-input" value={password} onChange={handlePasswordChange} placeholder=" " autoComplete="current-password" 
                          style={{height:"2.5rem", padding:"0.375rem 0.75rem", fontSize:"1rem", fontWeight:"400", lineHeight:"1.5", color:"#495057", 
-                                 border:"1px solid #ced4da", borderRadius:"0.25rem"}} />
+                                 border:"none", borderBottom: "1px solid #ced4da" ,borderRadius:"0.25rem"}} />
                   <label htmlFor="password-input" style={{position:"absolute", top:"1.75rem", left:"0.75rem", display:"inline-block", color:password ? "#E0E0E0" : "#495057", 
                                                           textAlign:"left", transform:password ? "translateY(-1.5rem)" : "translateY(-50%)"}}>
                     Password
                   </label>
                 </div>
-                <div style={{marginBottom:"20px"}}>
+                <div style={{marginBottom:"2rem"}}>
                   <label><input type="checkbox" />Remember me</label>
                 </div>
-                <button type="submit" style={{marginBottom:"20px"}}>
+                <button type="submit" style={{marginBottom:"2rem", width:"100%"}}>
                   Sign In
                 </button>
-                <div style={{marginBottom:"20px"}}>New Lovebrids?</div>
+                <div style={{marginBottom:"2rem"}}>
+                  <GoogleButton />
+                </div>
+                <div style={{marginBottom:"1rem"}}>New Lovebrids?</div>
                 {/* <Router>
                   <Link to="/register">Create Account</Link>
                   <Routes path="/Register" component={Register} />
                 </Router> */}
-                <GoogleButton />
               </form>
             </div>
 
