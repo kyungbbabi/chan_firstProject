@@ -182,17 +182,17 @@ export default function Login(props) {
                   <GoogleButton />
                 </div>
                 <div style={{marginBottom:"1rem"}}>New Lovebrids?</div>
-                {/* <Router>
+                <Router>
                   <Link to="/register">Create Account</Link>
-                  <Routes path="/Register" component={Register} />
-                </Router> */}
+                  <Routes path="/register" component={Register} />
+                </Router>
               </form>
             </div>
 
             
           </div>
         </section>
-      </main>
+      </main> 
     </>
   );
 }
