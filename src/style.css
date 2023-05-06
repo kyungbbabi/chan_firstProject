@@ -17,18 +17,12 @@ html, body, #root {
   background-Color: wheat;
 }
 
-#login-form{
-  display: inline-block;
-  text-align: center;
-  gap: 20px;
-  margin: 0 auto;
-  padding-bottom: 1rem;
-}
-
 @media screen and (min-width: 768px) {
   #login-form {
-    flex-direction: row;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 }
 
