@@ -15,8 +15,8 @@ import BackgroundImage from "./component/BackgroundImage";
 function App() {
   
   return (
-    // <Login />
-    <Login2 />
+    <Login />
+    // <Login2 />
 
     // <BrowserRouter>
     // <Routes>
