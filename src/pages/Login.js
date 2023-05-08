@@ -2,7 +2,8 @@ import React, { useState , useEffect } from "react";
 import axios from "axios";
 import GoogleLogin from 'react-google-login';
 import { gapi } from 'gapi-script';
-import { Box, Container, Typography, FormControl, InputLabel, Input, FormHelperText } from "@mui/material";
+import { Box, Container, Typography, FormControl, InputLabel, Input, FormHelperText, Button, Divider, Dialog, DialogContent } from "@mui/material";
+import Register from "./Register";
 
 export default function Login(props) {
 
@@ -10,6 +11,7 @@ export default function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
   
   const [imageUrl, setImageUrl] = useState("");
 
@@ -110,11 +112,20 @@ export default function Login(props) {
     console.log("1");
   }
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
   return (
     <>
       <Container maxWidth="xs" style={{ display:"flex", alignItems:"center", justifyContent:"center", height:"100vh" }}>
-        <img src={imageUrl} alt="background" style={{ position:"fixed", width:"50%", height:"50%", zIndex: 0 }} />
-        <Box display="flex" flexDirection="column">
+        {/* <img src={imageUrl} alt="background" style={{ position:"fixed", width:"50%", height:"50%", zIndex: 0 }} /> */}
+        <Box id="login-box" display="flex" flexDirection="column" marginBottom="2rem">
           <Typography variant="h5" gutterBottom align="center">
             Sign In
           </Typography>
@@ -127,9 +138,24 @@ export default function Login(props) {
             <Input id="password-input" type="password" />
             <FormHelperText onClick={handleHelperTextClick} style={{textAlign:"end"}}>Forget password?</FormHelperText>
           </FormControl>
+          <Button variant="contained">Sign in</Button>
+          <Divider>OR</Divider>
+          <GoogleButton />
+          <Box display="flex" flexDirection="row" alignItems="center">
+            <Typography>New Lovebrids?</Typography>
+            <Button onClick={handleClickOpen}>
+              Create Account
+            </Button>
+            <Dialog>
+              <DialogContent>
+                <Register />
+              </DialogContent>
+            </Dialog>
+          </Box>
         </Box>
       </Container>
     </>
   );
 }
+
 
