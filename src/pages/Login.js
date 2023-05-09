@@ -128,7 +128,7 @@ export default function Login(props) {
       <Container maxWidth="xs" sx={{position:"relative", display:"flex", alignItems:"center", justifyContent:"center", height:"100vh" }}>
         <Box sx={{position:"absolute", display:"flex", flexDirection:"row"}}>
           <img src={imageUrl} alt="background" style={{width:"100%", height:"100%"}} />
-
+        <Box />
         <Box display="flex" flexDirection="column">
           <Typography variant="h5" gutterBottom align="center">
             Sign In
