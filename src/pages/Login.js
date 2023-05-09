@@ -103,6 +103,8 @@ export default function Login(props) {
         onSuccess={onSuccess}
         onFailure={onFailure}
         buttonText="Sign in With Google"
+        style={{display:"flex", justifyContent:"center"}}
+        sx={{display:"flex", justifyContent:"center"}}
       />
     )
   };
@@ -116,16 +118,18 @@ export default function Login(props) {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClickClose = () => {
     setOpen(false);
   };
 
 
   return (
     <>
-      <Container maxWidth="xs" style={{ display:"flex", alignItems:"center", justifyContent:"center", height:"100vh" }}>
-        {/* <img src={imageUrl} alt="background" style={{ position:"fixed", width:"50%", height:"50%", zIndex: 0 }} /> */}
-        <Box id="login-box" display="flex" flexDirection="column" marginBottom="2rem">
+      <Container maxWidth="xs" sx={{position:"relative", display:"flex", alignItems:"center", justifyContent:"center", height:"100vh" }}>
+        <Box sx={{position:"absolute", display:"flex", flexDirection:"row"}}>
+          <img src={imageUrl} alt="background" style={{width:"100%", height:"100%"}} />
+
+        <Box display="flex" flexDirection="column">
           <Typography variant="h5" gutterBottom align="center">
             Sign In
           </Typography>
@@ -140,18 +144,19 @@ export default function Login(props) {
           </FormControl>
           <Button variant="contained">Sign in</Button>
           <Divider>OR</Divider>
-          <GoogleButton />
+          <GoogleButton style={{display:"flex", justifyContent:"center"}} />
           <Box display="flex" flexDirection="row" alignItems="center">
             <Typography>New Lovebrids?</Typography>
             <Button onClick={handleClickOpen}>
               Create Account
             </Button>
-            <Dialog>
+            <Dialog open={open} onClose={handleClickClose}>
               <DialogContent>
                 <Register />
               </DialogContent>
             </Dialog>
           </Box>
+        </Box>
         </Box>
       </Container>
     </>
