@@ -125,38 +125,45 @@ export default function Login(props) {
 
   return (
     <>
-      <Container maxWidth="xs" sx={{position:"relative", display:"flex", alignItems:"center", justifyContent:"center", height:"100vh" }}>
-        <Box sx={{position:"absolute", display:"flex", flexDirection:"row"}}>
-          <img src={imageUrl} alt="background" style={{width:"100%", height:"100%"}} />
-        <Box />
-        <Box display="flex" flexDirection="column">
-          <Typography variant="h5" gutterBottom align="center">
-            Sign In
-          </Typography>
-          <FormControl>
-            <InputLabel variant="standard">ID</InputLabel>
-            <Input id="login-input" />
-          </FormControl>
-          <FormControl>
-            <InputLabel variant="standard">Password</InputLabel>
-            <Input id="password-input" type="password" />
-            <FormHelperText onClick={handleHelperTextClick} style={{textAlign:"end"}}>Forget password?</FormHelperText>
-          </FormControl>
-          <Button variant="contained">Sign in</Button>
-          <Divider>OR</Divider>
-          <GoogleButton style={{display:"flex", justifyContent:"center"}} />
-          <Box display="flex" flexDirection="row" alignItems="center">
-            <Typography>New Lovebrids?</Typography>
-            <Button onClick={handleClickOpen}>
-              Create Account
-            </Button>
-            <Dialog open={open} onClose={handleClickClose}>
-              <DialogContent>
-                <Register />
-              </DialogContent>
-            </Dialog>
+      <Container sx={{display:"flex", alignItems:"center", height:"100vh" }}>
+        <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center"}}>
+          <img src={imageUrl} alt="background" style={{width:"60%", height:"50%"}} />
+          <Box sx={{position:"absolute", right:0, transform:"translateX(-66%)", backgroundColor:"white", width:"30%", height:"100%"}}>
+            <Box sx={{ display:"flex", flexDirection:"column", justifyContent:"center", padding:"1em", marginTop:"1em", marginBottom:"1em"}}>
+                <Typography variant="h5" gutterBottom align="center">
+                  Sign In
+                </Typography>
+              <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", padding:"1em"}}>
+                <FormControl>
+                  <InputLabel variant="standard">ID</InputLabel>
+                  <Input id="login-input" />
+                </FormControl>
+                <FormControl>
+                  <InputLabel variant="standard">Password</InputLabel>
+                  <Input id="password-input" type="password" />
+                  <FormHelperText onClick={handleHelperTextClick} style={{textAlign:"end"}}>Forget password?</FormHelperText>
+                </FormControl>
+              </Box>
+              <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                <Button variant="contained">Sign in</Button>
+              </Box>
+                <Divider sx={{padding:"1rem"}}>OR</Divider>
+              <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                <GoogleButton />
+              </Box>
+              <Box sx={{display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center", padding:"1rem"}}>
+                <Typography>New Lovebrids?</Typography>
+                <Button onClick={handleClickOpen}>
+                  Create Account
+                </Button>
+                <Dialog open={open} onClose={handleClickClose}>
+                  <DialogContent>
+                    <Register />
+                  </DialogContent>
+                </Dialog>
+              </Box>
+            </Box>
           </Box>
-        </Box>
         </Box>
       </Container>
     </>
