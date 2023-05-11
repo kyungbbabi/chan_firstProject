@@ -17,17 +17,17 @@ export default function Login(props) {
 
   // useEffect(() => {
   //   async function fetchImage() {
-  //     const response = await fetch("https://picsum.photos/seed/picsum/800/600")
-  //     setImageUrl(response.url);
-  //   }
-  //   fetchImage();
+  //      const randomString = Math.random().toString(36).substring(7);
+  //       const response = await axios.get(`https://source.unsplash.com/random?${randomString}`)
+  //       setImageUrl(response.request.responseURL);
+  //       }
+  //       fetchImage();
   // }, []);
 
   useEffect(() => {
     async function fetchImage() {
-       const randomString = Math.random().toString(36).substring(7);
-        const response = await axios.get(`https://source.unsplash.com/random?${randomString}`)
-        setImageUrl(response.request.responseURL);
+        const response = await fetch(`https://picsum.photos/seed/picsum/800/500`)
+        setImageUrl(response.url);
         }
         fetchImage();
   }, []);
@@ -66,10 +66,10 @@ export default function Login(props) {
       gapi.load('client:auth2', start);
     }, []);
     
-    const onSuccess = (response) => {
+    const onSuccess = async (response) => {
       // let body = {
-      //   access_token: res.accessToken,
-      //   id_token: res.tokenId,  
+      //   access_token: response.accessToken,
+      //   id_token: response.tokenId,  
       // };
   
       // await axios
@@ -103,8 +103,6 @@ export default function Login(props) {
         onSuccess={onSuccess}
         onFailure={onFailure}
         buttonText="Sign in With Google"
-        style={{display:"flex", justifyContent:"center"}}
-        sx={{display:"flex", justifyContent:"center"}}
       />
     )
   };
@@ -126,9 +124,9 @@ export default function Login(props) {
   return (
     <>
       <Container sx={{display:"flex", alignItems:"center", height:"100vh" }}>
-        <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center"}}>
-          <img src={imageUrl} alt="background" style={{width:"60%", height:"50%"}} />
-          <Box sx={{position:"absolute", right:0, transform:"translateX(-66%)", backgroundColor:"white", width:"30%", height:"100%"}}>
+        <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
+          <img src={imageUrl} alt="background" style={{top:0, right:0}}/>
+          <Box sx={{position:"absolute", right:0,  backgroundColor:"white", width:"50%", height:"100%"}}>
             <Box sx={{ display:"flex", flexDirection:"column", justifyContent:"center", padding:"1em", marginTop:"1em", marginBottom:"1em"}}>
                 <Typography variant="h5" gutterBottom align="center">
                   Sign In
