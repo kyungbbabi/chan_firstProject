@@ -123,11 +123,11 @@ export default function Login(props) {
 
   return (
     <>
-      <Container sx={{display:"flex", alignItems:"center", height:"100vh" }}>
+      <Container sx={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh" }}>
         <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
           <img src={imageUrl} alt="background" style={{top:0, right:0}}/>
-          <Box sx={{position:"absolute", right:0,  backgroundColor:"white", width:"50%", height:"100%"}}>
-            <Box sx={{ display:"flex", flexDirection:"column", justifyContent:"center", padding:"1em", marginTop:"1em", marginBottom:"1em"}}>
+          <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%"}}>
+            <Box sx={{ display:"flex", flexDirection:"column"}}>
                 <Typography variant="h5" gutterBottom align="center">
                   Sign In
                 </Typography>
@@ -139,7 +139,7 @@ export default function Login(props) {
                 <FormControl>
                   <InputLabel variant="standard">Password</InputLabel>
                   <Input id="password-input" type="password" />
-                  <FormHelperText onClick={handleHelperTextClick} style={{textAlign:"end"}}>Forget password?</FormHelperText>
+                  <FormHelperText onClick={handleHelperTextClick} sx={{textAlign:"end", margin:"0"}}>Forget password?</FormHelperText>
                 </FormControl>
               </Box>
               <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
