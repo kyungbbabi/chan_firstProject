@@ -2,7 +2,7 @@ import React, { useState , useEffect } from "react";
 import axios from "axios";
 import GoogleLogin from 'react-google-login';
 import { gapi } from 'gapi-script';
-import { Box, Container, Typography, FormControl, InputLabel, Input, FormHelperText, Button, Divider, Dialog, DialogContent } from "@mui/material";
+import { Box, Container, Typography, FormControl, InputLabel, Input, FormHelperText, Button, Divider, Dialog, DialogContent, TextField } from "@mui/material";
 import Register from "./Register";
 
 export default function Login(props) {
@@ -210,7 +210,7 @@ export default function Login(props) {
           <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%"}}>
             <Box sx={{ display:"flex", flexDirection:"column"}}>
                 <Typography variant="h5" gutterBottom align="center">
-                  Sign In
+                  Sign in
                 </Typography>
               <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", padding:"1em"}}>
                 <FormControl>
