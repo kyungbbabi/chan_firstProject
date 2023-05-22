@@ -42,7 +42,6 @@ export default function Register(props) {
       <FormControl variant="standard">
         <InputLabel>gender</InputLabel>
         <Select label="gender">
-          <MenuItem value=""></MenuItem>
           <MenuItem value="Man">Man</MenuItem>
           <MenuItem value="Woman">Woman</MenuItem>
         </Select>
