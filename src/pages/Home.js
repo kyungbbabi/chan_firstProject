@@ -1,5 +1,4 @@
 import React from "react";
-import BackgroundImage from "../component/BackgroundImage";
 
 export default function Home(props) {
 
@@ -8,12 +7,8 @@ export default function Home(props) {
   }
 
   return(
-    <div>
-      <BackgroundImage />
-
-      
-      <button type="submit" onClick={handelClickLoginPage}>Start</button>
-    </div>
+    <>
+    </>
   );
 
 }
