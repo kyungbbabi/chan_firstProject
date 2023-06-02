@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Protfolio from "./pages/Portfolio";
 import Blog from "./pages/Blog";
 import style from "./style.css"
+import Header from "./component/header/Header";
 
 
 
@@ -14,7 +15,9 @@ import style from "./style.css"
 function App() {
   
   return (
-    <Login />
+    // <Login />
+    // <Home />
+    <Header />
 
     // <BrowserRouter>
     // <Routes>
