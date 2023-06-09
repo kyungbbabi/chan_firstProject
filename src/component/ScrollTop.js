@@ -1,12 +1,14 @@
-import { Fab } from "@mui/material";
 import React from "react";
+import { Fab, Fade } from "@mui/material";
 
 const ScrollTop = (props) => {
 
   return(
-    <Fab>
-      
-    </Fab>
+    <Fade>
+      <Fab>
+
+      </Fab>
+    </Fade>
   );
 }
 
