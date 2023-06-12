@@ -11,12 +11,8 @@ const Header = (props) => {
       <AppBar >
         <Toolbar style={{padding:"0", display:"flex", justifyContent:"space-between"}}>
           <HeaderMenu />
-
-          {/* 위치 맞춰봐야함 */}
-          <Typography variant="h6" align="center">Portfolio</Typography> 
-          
+          <Typography variant="h6" style={{position:"absolute", left:"50%", transform:"translateX(-50%)"}}>Lorem ipsum dolor</Typography> 
           <HeaderAvatar />
-        
         </Toolbar>
       </AppBar>
     </>
