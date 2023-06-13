@@ -8,6 +8,8 @@ import Protfolio from "./pages/Portfolio";
 import Blog from "./pages/Blog";
 import style from "./style.css"
 import Header from "./component/header/Header";
+import ScrollTop from "./component/ScrollTop";
+import { Typography } from "@mui/material";
 
 
 
@@ -28,6 +30,8 @@ function App() {
     //   <Route path="/Portfolio" Component={Protfolio} />
     //   <Route path="/Blog" Component={Blog} />
     // </Routes>
+
+    //    <ScrollTop />
     // </BrowserRouter>
   )
 
