@@ -9,7 +9,6 @@ import Blog from "./pages/Blog";
 import style from "./style.css"
 import Header from "./component/header/Header";
 import ScrollTop from "./component/ScrollTop";
-import { Typography } from "@mui/material";
 
 
 
@@ -18,8 +17,8 @@ function App() {
   
   return (
     // <Login />
-    // <Home />
-    <Header />
+    <Home />
+    // <Header />
 
     // <BrowserRouter>
     // <Routes>
