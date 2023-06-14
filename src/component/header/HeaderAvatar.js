@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography } from "@mui/material"
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 const HeaderAvatar = () => {
   
@@ -15,8 +16,17 @@ const HeaderAvatar = () => {
     setAnchorElUser(null);
   }
 
+  const handelClickInstagram = (e) => {
+    e.preventDefault();
+  }
+
   return(
     <Box>
+      <Tooltip title="Open settings">
+        <IconButton onClick={handelClickInstagram} sx={{ p: 0 }}>
+          <InstagramIcon />
+        </IconButton>
+      </Tooltip>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           <Avatar />
@@ -25,15 +35,9 @@ const HeaderAvatar = () => {
       <Menu
         sx={{ mt: '45px' }}
         anchorEl={anchorElUser}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={anchorElUser}
         onClose={handleCloseUserMenu}
       >

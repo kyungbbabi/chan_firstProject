@@ -3,6 +3,7 @@ import React from "react";
 
 const HeaderMenu = (props) => {
   
+  // navigate 추가하기
   
   return(
     
