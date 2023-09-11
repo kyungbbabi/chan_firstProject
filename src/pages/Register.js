@@ -154,7 +154,7 @@ export default function Register(props) {
 
 // // 약관 동의 모달창
 // // RegisterForm.jsx
-
+ 
 // const [isAccepted, setIsAccpted] = useState(false);
 
 // const handleCheckAccept = useCallback(() => {
@@ -217,5 +217,6 @@ export default function Register(props) {
       </FormControl>
       <Button variant="contained" onClick={handleClickRegister}>Done</Button>
     </Stack>
+
   );
 }
