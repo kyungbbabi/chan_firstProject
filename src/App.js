@@ -16,8 +16,11 @@ import ScrollTop from "./component/ScrollTop";
 function App() {
   
   return (
-    <Login />
+    // <Login />
     // <Home />
+    // <Main />
+    // <Blog />
+    <Protfolio />
     // <Header />
 
     // <BrowserRouter>
