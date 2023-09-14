@@ -20,21 +20,22 @@ function App() {
     // <Home />
     // <Main />
     // <Blog />
-    <Protfolio />
+    // <Protfolio />
     // <Header />
 
-    // <BrowserRouter>
-    // <Routes>
-    //   <Route path="/" Component={Home} />
-    //   <Route path="/Login" Component={Login} />
-    //   <Route path="/Register" Component={Register} />
-    //   <Route path="/Main" Component={Main} />
-    //   <Route path="/Portfolio" Component={Protfolio} />
-    //   <Route path="/Blog" Component={Blog} />
-    // </Routes>
+
+    <BrowserRouter>
+      <Routes>
+        <Route path={"/"} element={<Home />}></Route>
+        <Route path={"/Login"} element={<Login />}></Route>
+        <Route path={"/Register"} element={<Register />}></Route>
+        <Route path={"/Main"} element={<Main />}></Route>
+        <Route path={"/Portfolio"} element={<Protfolio />}></Route>
+        <Route path={"/Blog"} element={<Blog />}></Route>
+      </Routes>
+    </BrowserRouter>
 
     //    <ScrollTop />
-    // </BrowserRouter>
   )
 
 }
