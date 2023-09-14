@@ -14,15 +14,18 @@ export default function Blog(){
         <Card sx={{maxWidth: 345}}>
           <CardMedia component="img" height="194" image={Newyork} />
           <CardContent>
+            <Typography variant="h5">
+            Title 1
+            </Typography>
             <Typography>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
             quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </Typography>
           </CardContent>
           <Divider />
-          <CardActions>
+          <CardActions style={{ display:"flex", justifyContent:"space-between"}}>
             <Typography>
-              Title 1, yyyy mm dd
+              yyyy mm dd
             </Typography>
             <IconButton>
               <FavoriteIcon fontSize="small"/>

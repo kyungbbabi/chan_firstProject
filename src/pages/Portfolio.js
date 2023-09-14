@@ -1,6 +1,7 @@
 import { Box, Grid, ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
 import React from "react";
 import Header from "../component/header/Header";
+import { useNavigate } from "react-router-dom";
 
 export default function Portfolio(){
 
@@ -67,13 +68,19 @@ export default function Portfolio(){
     // },
   ];
 
+  let navigate = useNavigate();
+
+  const handleClickOpen = () => {
+    navigate("/portfoliodetail");
+  }
+
   return(
     <Box>
       <Header />
       <Grid sx={{display: "flex", alignItems:"center", justifyContent:"center", marginTop:"4em"}}>
         <ImageList sx={{}}>
           {itemData.map((item) => (
-            <ImageListItem key={item.img}>
+            <ImageListItem key={item.img} onClick={handleClickOpen}>
               <img src={`${item.img}?w=248&fit=crop&auto=format`} alt={item.title} loading="lazy" />
               <ImageListItemBar title={item.title} subtitle={<span>by: {item.author}</span>} position="below" />
             </ImageListItem>
@@ -83,4 +90,4 @@ export default function Portfolio(){
     </Box>
   );
 
-}
+} 
