@@ -1,6 +1,6 @@
 import React from "react";
 
-const Writing = () => {
+const PostWrite = () => {
 
   return(
     <></>
@@ -8,4 +8,4 @@ const Writing = () => {
   
 }
 
-export default Writing;
+export default PostWrite;

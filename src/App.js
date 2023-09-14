@@ -9,6 +9,8 @@ import Blog from "./pages/Blog";
 import style from "./style.css"
 import Header from "./component/header/Header";
 import ScrollTop from "./component/ScrollTop";
+import BlogDetail from "./pages/BlogDetail";
+import PortfolioDetail from "./pages/PortfolioDetail";
 
 
 
@@ -16,22 +18,16 @@ import ScrollTop from "./component/ScrollTop";
 function App() {
   
   return (
-    // <Login />
-    // <Home />
-    // <Main />
-    // <Blog />
-    // <Protfolio />
-    // <Header />
-
-
     <BrowserRouter>
       <Routes>
         <Route path={"/"} element={<Home />}></Route>
-        <Route path={"/Login"} element={<Login />}></Route>
-        <Route path={"/Register"} element={<Register />}></Route>
-        <Route path={"/Main"} element={<Main />}></Route>
-        <Route path={"/Portfolio"} element={<Protfolio />}></Route>
-        <Route path={"/Blog"} element={<Blog />}></Route>
+        <Route path={"/login"} element={<Login />}></Route>
+        <Route path={"/register"} element={<Register />}></Route>
+        <Route path={"/main"} element={<Main />}></Route>
+        <Route path={"/blog"} element={<Blog />}></Route>
+        <Route path={"/blogdetail"} element={<BlogDetail />}></Route>
+        <Route path={"/portfolio"} element={<Protfolio />}></Route>
+        <Route paht={"/portfoliodetail"} element={<PortfolioDetail />}></Route>
       </Routes>
     </BrowserRouter>
 
