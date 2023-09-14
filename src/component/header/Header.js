@@ -9,7 +9,7 @@ const Header = (props) => {
   let navigate = useNavigate();
 
   const handleClickHome = () => {
-    navigate('/home');
+    navigate('/');
   };
 
   return(
