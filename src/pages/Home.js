@@ -44,8 +44,6 @@ export default function Home(props) {
 
   return(
     <Box>
-      <Header />
-ㄹ
       <Grid sx={{display:"center", alignItems:"center" ,justifyContent:"center", marginTop:"4rem"}}>
         <img src={imageUrl} alt="background" style={{top:0, right:0}} />
         대충 가운데 배경, 효과나 다른 배경을 넣을까? 

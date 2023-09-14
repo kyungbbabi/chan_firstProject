@@ -1,17 +1,22 @@
 import { Box, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, Grid, IconButton, Typography } from "@mui/material";
 import React from "react";
-import Header from "../component/header/Header";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Newyork from '../newyork.png'
+import { useNavigate } from "react-router-dom";
 
 export default function Blog(){
 
+  let navigate = useNavigate();
+
+  const handelClickBlogDetail = () => {
+    navigate("/blogdetail");
+  };
+
   return(
     <Box>
-      <Header />
       <Grid sx={{display: "flex", alignItems:"center", justifyContent:"center", marginTop:"4em", padding:"3em"}} >
-        <Card sx={{maxWidth: 345}}>
+        <Card sx={{maxWidth: 345}} onClick={handelClickBlogDetail} >
           <CardMedia component="img" height="194" image={Newyork} />
           <CardContent>
             <Typography variant="h5">
