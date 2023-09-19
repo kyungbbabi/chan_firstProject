@@ -1,7 +1,37 @@
 import React, { useState , useEffect } from "react";
 import axios from "axios";
-import Header from "../component/header/Header";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Paper, Typography } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+import MobileStepper from '@mui/material/MobileStepper';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import SwipeableViews from 'react-swipeable-views-react-18-fix';
+import { autoPlay } from 'react-swipeable-views-utils';
+
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+
+const images = [
+  {
+    label: 'San Francisco – Oakland Bay Bridge, United States',
+    imgPath:
+      'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+  {
+    label: 'Bird',
+    imgPath:
+      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+  {
+    label: 'Bali, Indonesia',
+    imgPath:
+      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
+  },
+  {
+    label: 'Goč, Serbia',
+    imgPath:
+      'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=25ㅠ0&q=60',
+  },
+];
 
 export default function Home(props) {
 
@@ -9,69 +39,56 @@ export default function Home(props) {
 
   const [imageUrl, setImageUrl] = useState("");
 
-  // useEffect(() => {
-  //   const accessKey = process.env.REACT_APP_YOUR_ACCESS_KEY;
-  //   const apiUrl = `https://api.unsplash.com/photos/random?client_id=${accessKey}&orientation=landscape`;
-  //   // `https://api.unsplash.com/search/photos?page=1&query=${img}&client_id=${Access_Key}&orientation=landscape&per_page=20`
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = useState(0);
+  const maxSteps = images.length;
 
-  //   // axios.get(apiUrl)
-  //   //   .then(response => {
-  //   //     const imageSrc = response.data.urls.regular;
-  //   //     setImageUrl(imageSrc);
-  //   //   })
-  //   //   .catch(error => {
-  //   //     console.log("1111");
-  //   //   });
-  //   console.log(accessKey)
-  //   axios
-  //     .get(`https://images.unsplash.com/photo-1461214270855-1ce11f7a1cda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY5MDYwNzA3Nw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080`, {
-  //       params: {
-  //         // client_id: accessKey,
-  //         // count: 30
-  //       }})
-  //     .then(res => {
-  //       this.setImageUrl({
-  //         images: [...this.state.images, ...res.data.map(image => image.url.small)]
-  //       })
-  //     })
-  // }, []);
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
 
-  axios
-    .get(`https:api.unsplash.com/photos/random/?client_id=2kHJ2D1goTsPkHYGgUbxJqrmXS--kql19NSjcqV8SB8`)
-    .then( res => {
-      setImageUrl();
-    })
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleStepChange = (step) => {
+    setActiveStep(step);
+  };
+
+  // axios
+  //   .get(`https:api.unsplash.com/photos/random/?client_id=2kHJ2D1goTsPkHYGgUbxJqrmXS--kql19NSjcqV8SB8`)
+  //   .then( res => {
+  //     setImageUrl();
+  //  })
 
   return(
     <Box>
-      <Grid sx={{display:"center", alignItems:"center" ,justifyContent:"center", marginTop:"4rem"}}>
-        <img src={imageUrl} alt="background" style={{top:0, right:0}} />
-        대충 가운데 배경, 효과나 다른 배경을 넣을까? 
-      </Grid>
-      <Grid sx={{display:"center", alignItems:"center", justifyContent:"center"}}>
-        그 안에 사이트 소개 있음, 글이든 사진이든
-      </Grid>
-      <Grid sx={{display:"center", alignItems:"center" ,justifyContent:"center"}}>
-        대충 가운데 배경, 효과나 다른 배경을 넣을까? 
-      </Grid>
-      <Grid sx={{display:"center", alignItems:"center" ,justifyContent:"center"}}>
-        대충 가운데 배경, 효과나 다른 배경을 넣을까? 
-      </Grid>
-      <Grid sx={{display:"center", alignItems:"center" ,justifyContent:"center"}}>
-        대충 가운데 배경, 효과나 다른 배경을 넣을까? 
-      </Grid>
-      <Grid sx={{display:"center", alignItems:"center" ,justifyContent:"center"}}>
-        대충 가운데 배경, 효과나 다른 배경을 넣을까? 
-      </Grid>
-      <Grid sx={{display:"center", alignItems:"center" ,justifyContent:"center"}}>
-        대충 가운데 배경, 효과나 다른 배경을 넣을까? 
-      </Grid>
-      <Grid sx={{display:"center", alignItems:"center" ,justifyContent:"center"}}>
-        대충 가운데 배경, 효과나 다른 배경을 넣을까? 
-      </Grid>
-      <Grid sx={{display:"center", alignItems:"center" ,justifyContent:"center"}}>
-        대충 가운데 배경, 효과나 다른 배경을 넣을까? 
-      </Grid>
+      <Paper square elevation={0} sx={{ display: 'flex', alignItems: 'center', height: 50, pl: 2, bgcolor: 'background.default', }} >
+        <Typography>{images[activeStep].label}</Typography>
+      </Paper>
+      <AutoPlaySwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'} index={activeStep} onChangeIndex={handleStepChange} enableMouseEvents >
+        {images.map((step, index) => (
+          <div key={step.label}>
+            {Math.abs(activeStep - index) <= 2 ? (
+              <Box component="img" sx={{ height: 255,  display: 'block', maxWidth: 400, overflow: 'hidden', width: '100%', }} src={step.imgPath} alt={step.label}/>
+            ) : null}
+          </div>
+        ))}
+      </AutoPlaySwipeableViews>
+      <MobileStepper steps={maxSteps} position="static" activeStep={activeStep}
+        nextButton={
+          <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1} >
+            Next
+            {theme.direction === 'rtl' ? ( <KeyboardArrowLeft /> ) : ( <KeyboardArrowRight /> )}
+          </Button>
+        }
+        backButton={
+          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+            {theme.direction === 'rtl' ? ( <KeyboardArrowRight /> ) : ( <KeyboardArrowLeft /> )}
+            Back
+          </Button>
+        }
+      />
     </Box>
   );
 

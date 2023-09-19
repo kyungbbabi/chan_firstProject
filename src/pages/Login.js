@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from "react";
 import axios from "axios";
-import GoogleLogin from 'react-google-login';
+import GoogleLogin from '@leecheuk/react-google-login';
 import { gapi } from 'gapi-script';
 import { Box, Container, Typography, FormControl, InputLabel, Input, FormHelperText, Button, Divider, Dialog, DialogContent } from "@mui/material";
 import Register from "./Register";
@@ -8,6 +8,7 @@ import Register from "./Register";
 export default function Login(props) {
 
     // state variables to keep track of input field values
+    
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
