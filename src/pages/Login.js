@@ -35,7 +35,7 @@ export default function Login(props) {
 
   const loginValidate = async (email, password) => {
     try{
-      const response = await fetch('', {
+      const response = await fetch('여기에_백엔드_API_URL을_입력하세요', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -54,6 +54,10 @@ export default function Login(props) {
 
   // const handleClickLogin = async (e) => {
   //   e.preventDefault();
+
+  //   // 이 부분에서 사용자가 입력한 이메일(email)과 비밀번호(password)를 가져와야 합니다.
+  //   // 예를 들어, state 변수인 email과 password를 사용합니다.
+
   //   dispatch({type: 'OpenLoading', payload: '로그인을 시도중입니다..'});
   //   loginValidate() &&
   //   await axios.post(`/auth/login`, loginInfo)
@@ -76,6 +80,7 @@ export default function Login(props) {
   //     .finally(() => dispatch({type: 'CloseLoading'}));
   //   dispatch({type: 'CloseLoading'})
   // };
+
   // const handleClickAuthLogin = async (e) => {
   //   dispatch({type: 'OpenLoading', payload: '로그인을 시도중입니다..'});
   //   (loginValidate() & codeValidate()) &&

@@ -53,6 +53,11 @@ export default function Home(props) {
 
   const handleStepChange = (step) => {
     setActiveStep(step);
+
+    if(step === maxSteps) {
+      setActiveStep(0);
+    }
+
   };
 
   // axios
