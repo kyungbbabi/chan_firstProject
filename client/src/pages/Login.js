@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from "react";
 import axios from "axios";
-import GoogleLogin from 'react-google-login';
+import GoogleLogin from '@leecheuk/react-google-login';
 import { gapi } from 'gapi-script';
 import { Box, Container, Typography, FormControl, InputLabel, Input, FormHelperText, Button, Divider, Dialog, DialogContent } from "@mui/material";
 import Register from "./Register";
@@ -8,6 +8,59 @@ import Register from "./Register";
 export default function Login(props) {
 
     // state variables to keep track of input field values
+
+//     // 클라이언트 측 코드 (예: React 앱)
+
+// // 로그인 요청
+// async function loginUser(username, password) {
+//   try {
+//     const response = await fetch('/login', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ username, password }),
+//     });
+//     if (!response.ok) {
+//       throw new Error('Login failed.');
+//     }
+//     const data = await response.json();
+//     const token = data.token;
+
+//     // 토큰을 로컬 스토리지에 저장
+//     localStorage.setItem('token', token);
+
+//     return token;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+// // API 요청 시 토큰을 함께 보냄
+// async function fetchProtectedResource() {
+//   const token = localStorage.getItem('token');
+//   if (!token) {
+//     console.error('Token not found.');
+//     return;
+//   }
+
+//   try {
+//     const response = await fetch('/protected-resource', {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     if (!response.ok) {
+//       throw new Error('Failed to fetch protected resource.');
+//     }
+//     const data = await response.json();
+//     console.log('Protected resource:', data);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+    
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -34,7 +87,7 @@ export default function Login(props) {
 
   const loginValidate = async (email, password) => {
     try{
-      const response = await fetch('', {
+      const response = await fetch('여기에_백엔드_API_URL을_입력하세요', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -53,6 +106,10 @@ export default function Login(props) {
 
   // const handleClickLogin = async (e) => {
   //   e.preventDefault();
+
+  //   // 이 부분에서 사용자가 입력한 이메일(email)과 비밀번호(password)를 가져와야 합니다.
+  //   // 예를 들어, state 변수인 email과 password를 사용합니다.
+
   //   dispatch({type: 'OpenLoading', payload: '로그인을 시도중입니다..'});
   //   loginValidate() &&
   //   await axios.post(`/auth/login`, loginInfo)
@@ -75,6 +132,7 @@ export default function Login(props) {
   //     .finally(() => dispatch({type: 'CloseLoading'}));
   //   dispatch({type: 'CloseLoading'})
   // };
+
   // const handleClickAuthLogin = async (e) => {
   //   dispatch({type: 'OpenLoading', payload: '로그인을 시도중입니다..'});
   //   (loginValidate() & codeValidate()) &&
@@ -175,7 +233,7 @@ export default function Login(props) {
       <Container sx={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh" }}>
         <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
           <img src={imageUrl} alt="background" style={{top:0, right:0}}/>
-          <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%"}}>
+          <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%", backgroundColor:"wheat"}}>
             <Box sx={{ display:"flex", flexDirection:"column"}}>
                 <Typography variant="h5" gutterBottom align="center">
                   Sign in
