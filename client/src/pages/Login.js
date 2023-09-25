@@ -8,7 +8,6 @@ import Register from "./Register";
 export default function Login(props) {
 
     // state variables to keep track of input field values
-<<<<<<<< HEAD:client/src/pages/Login.js
 
 //     // 클라이언트 측 코드 (예: React 앱)
 
@@ -61,9 +60,6 @@ export default function Login(props) {
 //   }
 // }
 
-========
->>>>>>>> 2c358af8b85dc657448349a48f8ec6d99e6ac96c:client/build/src/pages/Login.js
-    
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
