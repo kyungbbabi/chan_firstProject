@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser'); //server module
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 
 // JSON 파싱 미들웨어 설정
@@ -17,6 +17,20 @@ app.get('/api/Login', (req, res) => {
 app.listen(port, () => {
 
 });
+
+
+
+
+
+
+
+// 라우터 설정
+// const loginRouter = require('./routes/login'); // 예시: 로그인 라우터
+// app.use('/api/login', loginRouter);
+
+// app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });
 
 
 // // 사용자 데이터베이스 (간단한 예제를 위해 하드 코딩)
