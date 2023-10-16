@@ -11,7 +11,7 @@ export default function Login(props) {
 
 //     // 클라이언트 측 코드 (예: React 앱)
 
-// // 로그인 요청
+// // 로그인 요청ㅜ 
 // async function loginUser(username, password) {
 //   try {
 //     const response = await fetch('/login', {
@@ -222,8 +222,6 @@ export default function Login(props) {
   const handleClickClose = () => {
     setOpen(false);
   };
-
-
 
 
 
