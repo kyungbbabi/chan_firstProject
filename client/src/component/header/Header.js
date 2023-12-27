@@ -12,6 +12,7 @@ const Header = (props) => {
     navigate('/');
   };
 
+  //left:"50%", transform:"translateX(-50%)" 없이 Lorem ipsum dolor가 정 가운데로 오는 방법
   return(
     <>
       <AppBar >
