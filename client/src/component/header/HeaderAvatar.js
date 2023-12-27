@@ -23,11 +23,6 @@ const HeaderAvatar = () => {
   return(
     <Box>
       <Tooltip title="Open settings">
-        <IconButton onClick={handelClickInstagram} fontSize="large" sx={{ p: 2 }}>
-          <InstagramIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           <Avatar />
         </IconButton>
