@@ -15,6 +15,9 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// 미들웨어 추가
+app.use(cors());
+app.use(bodyParser.json());
 
 
 // 미들웨어 설정
@@ -98,16 +101,77 @@ app.post('/login', authenticateUser, (req, res) => {
 
 
 
+const admin = require('firebase-admin');
+const serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
-
-
-
-
-// admin.initializeApp 함수는 Firebase Admin SDK를 사용하여 Firebase 프로젝트를 초기화하는 데 사용됩니다. 이 코드는 서버 측 애플리케이션에서 Firebase 서비스를 사용할 때 주로 필요합니다.
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount), //이 코드를 사용하면 서버 애플리케이션에서 Firebase 기능을 사용할 수 있으며, 이를 통해 데이터베이스 접근, 사용자 인증 및 다른 Firebase 기능을 활용할 수 있게 됩니다.
-  databaseURL: 'https://your-firebase-project.firebaseio.com', //Firebase 실시간 데이터베이스의 URL을 제공합니다.
+  credential: admin.credential.cert(serviceAccount),
+  //databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
 });
+
+
+
+
+const express = require('express');
+const router = express.Router();
+
+// 예시: 글 목록을 가져오는 API 엔드포인트
+router.get('/posts', async (req, res) => {
+  try {
+    // Firebase에서 글 목록을 가져오는 코드
+    const posts = await admin.firestore().collection('posts').get();
+    const postsData = posts.docs.map((doc) => doc.data());
+    res.json(postsData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// 라우터를 Express 앱에 추가
+app.use('/api', router);
+
+
+
+
+// 글 작성 API 엔드포인트
+router.post('/posts', async (req, res) => {
+  try {
+    const { title, content } = req.body;
+
+    // Firestore에 데이터 추가
+    const docRef = await admin.firestore().collection('posts').add({
+      title,
+      content,
+      timestamp: admin.firestore.FieldValue.serverTimestamp(),
+    });
+
+    res.json({ id: docRef.id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+// React 앱에서 API 호출 예시
+const fetchPosts = async () => {
+  try {
+    const response = await fetch('http://localhost:your-port/api/posts');
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+
+
+
+
+
+
 
 // Firebase 인증 설정
 const auth = admin.auth();
