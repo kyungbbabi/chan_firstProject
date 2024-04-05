@@ -2,12 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser'); //server module
 const app = express();
 const admin = require('firebase-admin');
-const serviceAccount = require('path/to/serviceAccountKey.json'); // Firebase 서비스 계정 키 경로
 const dotenv = require('dotenv');
 const port = process.env.PORT || 5000;
 
 // .env 파일 로드
 dotenv.config();
+
+const serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
 // JSON 파싱 미들웨어 설정
 // 미들웨어 함수 정의, 미들웨어 설정
@@ -16,7 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // 미들웨어 추가
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 
 
@@ -31,40 +32,21 @@ app.use((req, res, next) => {
 
 
 
-
-
-app.use((req, res, next) => {
-  console.log('미들웨어 1: 요청이 들어옴');
-  next(); // 다음 미들웨어 또는 라우트 핸들러로 요청 전달
-});
-
-app.use((req, res, next) => {
-  console.log('미들웨어 2: 요청을 처리함');
-  // 응답 보내지 않고 다음 미들웨어로 전달
-  next();
-});
-
-
-
  
 
 
 
 // 라우터 설정
-const loginRouter = require('./routes/login'); // 예시: 로그인 라우터
+// const loginRouter = require('./routes/login'); // 예시: 로그인 라우터
 // JWT 시크릿 키 (보안 상의 이유로 환경 변수로 설정해야 함)
-const secretKey = 'your-secret-key';
+// const secretKey = 'your-secret-key';
 
 
-app.use('/api/login', loginRouter);
+// app.use('/api/login', loginRouter);
 
 
 
-// 사용자 데이터베이스 (간단한 예제를 위해 하드 코딩)
-const users = [
-  { id: 1, username: 'user1', password: 'password1' },
-  { id: 2, username: 'user2', password: 'password2' },
-];
+
 
 // 라우트 핸들러
 app.get('/api/Login', (req, res) => {
@@ -101,57 +83,57 @@ app.post('/login', authenticateUser, (req, res) => {
 
 
 
-const admin = require('firebase-admin');
-const serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+
+
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  //databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
+  //databaseURL: process.env.FIREBASE_DATABASE_URL,
 });
 
 
 
 
-const express = require('express');
-const router = express.Router();
 
-// 예시: 글 목록을 가져오는 API 엔드포인트
-router.get('/posts', async (req, res) => {
-  try {
-    // Firebase에서 글 목록을 가져오는 코드
-    const posts = await admin.firestore().collection('posts').get();
-    const postsData = posts.docs.map((doc) => doc.data());
-    res.json(postsData);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+// const router = express.Router();
+
+// // 예시: 글 목록을 가져오는 API 엔드포인트
+// router.get('/posts', async (req, res) => {
+//   try {
+//     // Firebase에서 글 목록을 가져오는 코드
+//     const posts = await admin.firestore().collection('posts').get();
+//     const postsData = posts.docs.map((doc) => doc.data());
+//     res.json(postsData);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
 
 // 라우터를 Express 앱에 추가
-app.use('/api', router);
+// app.use('/api', router);
 
 
 
 
 // 글 작성 API 엔드포인트
-router.post('/posts', async (req, res) => {
-  try {
-    const { title, content } = req.body;
+// router.post('/posts', async (req, res) => {
+//   try {
+//     const { title, content } = req.body;
 
-    // Firestore에 데이터 추가
-    const docRef = await admin.firestore().collection('posts').add({
-      title,
-      content,
-      timestamp: admin.firestore.FieldValue.serverTimestamp(),
-    });
+//     // Firestore에 데이터 추가
+//     const docRef = await admin.firestore().collection('posts').add({
+//       title,
+//       content,
+//       timestamp: admin.firestore.FieldValue.serverTimestamp(),
+//     });
 
-    res.json({ id: docRef.id });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+//     res.json({ id: docRef.id });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
 
 
 // React 앱에서 API 호출 예시
@@ -175,7 +157,6 @@ const fetchPosts = async () => {
 
 // Firebase 인증 설정
 const auth = admin.auth();
-
 // Firebase 데이터베이스 설정
 const db = admin.firestore();
 
