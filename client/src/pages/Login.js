@@ -9,7 +9,27 @@ export default function Login(props) {
 
     // state variables to keep track of input field values
 
-//     // 클라이언트 측 코드 (예: React 앱)
+
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
+  
+  const [imageUrl, setImageUrl] = useState("");
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await axios.get(`https://api.unsplash.com/photos/?client_id=${process.env.REACT_APP_UNSPLASH_ACCESS_KEY}&w=800&h=600`);
+        setImageUrl(response.data[0].urls.regular);
+      } catch (error) {
+        console.error('Error fetching images:', error);
+      }
+    }
+    fetchImage();
+  }, []);
+  
 
 // // 로그인 요청ㅜ 
 // async function loginUser(username, password) {
@@ -60,44 +80,24 @@ export default function Login(props) {
 //   }
 // }
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [open, setOpen] = useState(false);
-  
-  const [imageUrl, setImageUrl] = useState("");
-
-  useEffect(() => {
-    const fetchImage = async () => {
-      try {
-        const response = await axios.get(`https://api.unsplash.com/photos/?client_id=${process.env.REACT_APP_UNSPLASH_ACCESS_KEY}&w=800&h=600`);
-        setImageUrl(response.data[0].urls.regular);
-      } catch (error) {
-        console.error('Error fetching images:', error);
-      }
-    }
-    fetchImage();
-  }, []);
-  
-
-  const loginValidate = async (email, password) => {
-    try{
-      const response = await fetch('여기에_백엔드_API_URL을_입력하세요', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email: email, password: password })
-      });
-      if (!response.ok) {
-        throw new Error('Login failed.');
-      }
-      const user = await response.json();
-      return user;
-    } catch(error){
-      return null;
-    }
-  }
+  // const loginValidate = async (email, password) => {
+  //   try{
+  //     const response = await fetch('여기에_백엔드_API_URL을_입력하세요', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({ email: email, password: password })
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error('Login failed.');
+  //     }
+  //     const user = await response.json();
+  //     return user;
+  //   } catch(error){
+  //     return null;
+  //   }
+  // }
 
   // const handleClickLogin = async (e) => {
   //   e.preventDefault();
@@ -206,18 +206,8 @@ export default function Login(props) {
     )
   };
 
-  const handleHelperTextClick = (e) => {
-    e.preventDefault();
-    console.log("1");
-  }
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClickClose = () => {
-    setOpen(false);
-  };
+  const handleClickOpen = () => {setOpen(true);};
+  const handleClickClose = () => {setOpen(false);};
 
 
 
@@ -225,7 +215,7 @@ export default function Login(props) {
     <>
       <Container sx={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh" }}>
         <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
-          <img src={imageUrl} alt="background" style={{top:0, right:0}}/>
+          <img src={imageUrl} alt="background" />
           <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%", backgroundColor:"wheat"}}>
             <Box sx={{ display:"flex", flexDirection:"column"}}>
                 <Typography variant="h5" gutterBottom align="center">
@@ -239,7 +229,7 @@ export default function Login(props) {
                 <FormControl>
                   <InputLabel variant="standard">Password</InputLabel>
                   <Input id="password-input" type="password" />
-                  <FormHelperText onClick={handleHelperTextClick} sx={{textAlign:"end", margin:"0"}}>Forget password?</FormHelperText>
+                  <FormHelperText sx={{textAlign:"end", margin:"0"}}>Forget password?</FormHelperText>
                 </FormControl>
               </Box>
               <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
