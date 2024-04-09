@@ -33,7 +33,7 @@ const PostWrite = () => {
       <Paper elevation={3} style={{ padding: '3em' }}>
         <Typography variant="h5">글쓰기</Typography>
         <TextField label="제목" variant="outlined" fullWidth value={title} onChange={handleTitleChange} margin="normal" />
-        <TextField label="본문" variant="outlined" fullWidth multiline rows={4} value={content} onChange={handleContentChange} margin="normal" />
+        <TextField label="본 문" variant="outlined" fullWidth multiline rows={4} value={content} onChange={handleContentChange} margin="normal" />
         <TextField accept="image/*" id="contained-button-file" type="file" style={{ display: 'none' }} onChange={handleImageChange} />
         <label htmlFor="contained-button-file">
           <Button variant="outlined" component="span" startIcon={<CloudUploadIcon />} style={{ marginTop: '16px' }}>이미지 업로드</Button>

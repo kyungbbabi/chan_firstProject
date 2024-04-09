@@ -26,7 +26,7 @@ export default function Home(props) {
   useEffect(() => {
     const getImages = async () => {
       try {
-        const response = await axios.get(`https://api.unsplash.com/photos/?client_id=${process.env.REACT_APP_UNSPLASH_ACCESS_KEY}`)
+        const response = await axios.get(`https://api.unsplash.com/photos/?client_id=${process.env.REACT_APP_UNSPLASH_ACCESS_KEY}&w=800&h=600`);
         setImages(response.data);
       } catch (error) {
         console.error('Error fetching images:', error);
@@ -48,17 +48,17 @@ export default function Home(props) {
   };
 
   return (
-    <Box>
+    <Box sx={{ textAlign: 'center' }}>
       {images.length > 0 && (
         <>
-          <Paper square elevation={0} sx={{ display: 'flex', alignItems: 'center', height: 50, pl: 2, bgcolor: 'background.default', }} >
+          <Paper square elevation={0} sx={{ display: 'flex', alignItems: 'center', height: 50, pl: 2, bgcolor: 'background.default', }}>
             <Typography>{images[activeStep].label}</Typography>
           </Paper>
           <AutoPlaySwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'} index={activeStep} onChangeIndex={handleStepChange} enableMouseEvents >
             {images.map((step, index) => (
               <div key={step.label}>
                 {Math.abs(activeStep - index) <= 2 ? (
-                  <Box component="img" sx={{ height: 255, display: 'block', maxWidth: 400, overflow: 'hidden', width: '100%', }} src={step.urls.regular} alt={step.alt_description} />
+                  <Box component="img" sx={{ margin: 'auto', maxHeight: '25%', maxWidth: '25%', height: 'auto', }} src={step.urls.regular} alt={step.alt_description} />
                 ) : null}
               </div>
             ))}
@@ -80,5 +80,6 @@ export default function Home(props) {
         </>
       )}
     </Box>
+  
   );
 }

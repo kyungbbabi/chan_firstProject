@@ -67,22 +67,18 @@ export default function Login(props) {
   
   const [imageUrl, setImageUrl] = useState("");
 
-  // useEffect(() => {
-  //   async function fetchImage() {
-  //      const randomString = Math.random().toString(36).substring(7);
-  //       const response = await axios.get(`https://source.unsplash.com/random?${randomString}`)
-  //       setImageUrl(response.request.responseURL);
-  //       }
-  //       fetchImage();
-  // }, []);
-
   useEffect(() => {
-    async function fetchImage() {
-        const response = await fetch(`https://picsum.photos/seed/picsum/800/500`)
-        setImageUrl(response.url);
-        }
-        fetchImage();
+    const fetchImage = async () => {
+      try {
+        const response = await axios.get(`https://api.unsplash.com/photos/?client_id=${process.env.REACT_APP_UNSPLASH_ACCESS_KEY}&w=800&h=600`);
+        setImageUrl(response.data[0].urls.regular);
+      } catch (error) {
+        console.error('Error fetching images:', error);
+      }
+    }
+    fetchImage();
   }, []);
+  
 
   const loginValidate = async (email, password) => {
     try{
