@@ -111,10 +111,12 @@ export default function Register(props) {
     <Stack spacing={2}>
       <Typography variant="h5" align="center">Sign Up</Typography>
       
-      <TextField variant="standard" label="email address">Email Address</TextField>
-      <TextField variant="standard" type="password" label="password">Password</TextField>
+      <TextField variant="standard" label="Email Address" />
+      <TextField variant="standard" type="password" label="Password" />
+
+      {/* 유효성 검사가 현재 없습니다. 사용자가 올바른 비밀번호를 입력했는지 확인하는 추가 로직을 구현하는 것이 좋습니다. */}
       <FormControl variant="standard">
-        <InputLabel>confirm</InputLabel>
+        <InputLabel>Password confirm</InputLabel>
         <Input type={showPassword ? 'text' : 'password'}
           endAdornment={
             <InputAdornment position="end">
@@ -126,7 +128,10 @@ export default function Register(props) {
           label="confirm"
         />
       </FormControl>
+
       <TextField variant="standard" label="name">Name</TextField>
+
+      {/* 이메일 인증 */}
       <TextField variant="standard" label="recovery email address" type="email">Recovery Email Address</TextField>
       <TextField variant="standard" label="phone number">Phone Number</TextField>
       <FormControl variant="standard">
