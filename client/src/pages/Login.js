@@ -15,13 +15,15 @@ export default function Login(props) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [open, setOpen] = useState(false);
-  
+  const [fullWidth, setFullWidth] = useState(true);
+  const [maxWidth, setMaxWidth] = useState('xs');
+
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await axios.get(`https://api.unsplash.com/photos/?client_id=${process.env.REACT_APP_UNSPLASH_ACCESS_KEY}&w=800&h=600`);
+        const response = await axios.get(`https://api.unsplash.com/photos/?client_id=${process.env.REACT_APP_UNSPLASH_ACCESS_KEY}`);
         setImageUrl(response.data[0].urls.regular);
       } catch (error) {
         console.error('Error fetching images:', error);
@@ -215,7 +217,7 @@ export default function Login(props) {
     <>
       <Container sx={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh" }}>
         <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
-          <img src={imageUrl} alt="background" />
+          {imageUrl && <img src={imageUrl} alt="Unsplash" style={{ width: '800px', height: '600px' }} />}
           <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%", backgroundColor:"wheat"}}>
             <Box sx={{ display:"flex", flexDirection:"column"}}>
                 <Typography variant="h5" gutterBottom align="center">
@@ -244,7 +246,7 @@ export default function Login(props) {
                 <Button onClick={handleClickOpen}>
                   Create Account
                 </Button>
-                <Dialog open={open} onClose={handleClickClose}>
+                <Dialog fullWidth={fullWidth} maxWidth={maxWidth} open={open} onClose={handleClickClose}>
                   <DialogContent>
                     <Register />
                   </DialogContent>
