@@ -1,12 +1,8 @@
 import React, { useState, useCallback } from "react";
-import { Stack, Typography, TextField, FormControl, InputLabel, Input, InputAdornment, IconButton, MenuItem, Select, Button } from "@mui/material";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Stack, Typography, TextField, FormControl, InputLabel, MenuItem, Select, Button } from "@mui/material";
 import { Axios } from "axios";
 
 export default function Register(props) {
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,19 +12,17 @@ export default function Register(props) {
   const [pwdMsg, setPwdMsg] = useState('');
   const [confirmPwdMsg, setConfirmPwdMsg]= useState("")
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (e) => { e.preventDefault(); };
 
-  const handleClickRegister = (e) => {
-    e.preventDefault();
-  }
 
   // 1-1. 이메일 / 비밀번호 / 닉네임 유효성 검사
   const validateEmail = (email) => {
+    if (typeof email !== 'string') {
+      return false;
+    }
     return email
       .toLowerCase()
-      .match(/([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/);
-  };
+      .match(/([\w-]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/);
+  };  
 
   const validatePwd = (password) => {
     return password
@@ -44,7 +38,7 @@ export default function Register(props) {
 
 
   // 이메일 
-  const onChangeEmail = useCallback( async (e) => {
+  const onChangeEmail = useCallback ( async (e) => {
     const currEmail = e.target.value;
     setEmail(currEmail);
 
@@ -56,7 +50,7 @@ export default function Register(props) {
     })
 
     //비밀번호
-  const onChangePwd = useCallback((e) =>{
+  const onChangePassword = useCallback((e) =>{
     const currPwd = e.target.value;
     setPassword(currPwd);
 
@@ -68,7 +62,7 @@ export default function Register(props) {
   }, [])
 
   // 비밀번호 확인
-  const onChangeConfirmPwd = useCallback((e) => {
+  const onChangeConfirmPassword = useCallback((e) => {
     const currConfirmPwd = e.target.value;
     setConfirmPwd(currConfirmPwd);
 
@@ -80,7 +74,7 @@ export default function Register(props) {
   }, [password])
 
 // 이메일 / 닉네임 중복 확인
-// 백엔드를 맡으신 분과 이런 저런 논의 끝에 백엔은 프엔에서 axios post로 사용자가 쓴 이메일과 닉네임 값을 보내주면 result 값을 불리언으로 뱉어주는 로직을 짜고 프엔은 사용자가 버튼을 누르면 이 불리언 값으로 중복인지 아닌지 걸러주는 로직을 짜기로 했다.
+// 프론트엔드에서 axios post로 사용자가 쓴 이메일과 닉네임 값을 보내주면 result 값을 boolean으로 뱉어주는 로직을 짜고 프론트엔드는 사용자가 버튼을 누르면 이 boolean 값으로 중복인지 아닌지 걸러주는 로직을 짜기로 했다.
   const [checkMail, setCheckMail] = useState(false)
   const [checkNickname, setCheckNickname] = useState(false)
 
@@ -104,6 +98,9 @@ export default function Register(props) {
     }
   }
     
+  const handleClickRegister = (e) => {
+    e.preventDefault();
+  }
 
   const genders = [ {value:'Man', label:'Man'}, {value:"Woman", label:"Woman"}]
 
@@ -111,29 +108,15 @@ export default function Register(props) {
     <Stack spacing={2}>
       <Typography variant="h5" align="center">Sign Up</Typography>
       
-      <TextField variant="standard" label="Email Address" />
-      <TextField variant="standard" type="password" label="Password" />
-
-      {/* 유효성 검사가 현재 없습니다. 사용자가 올바른 비밀번호를 입력했는지 확인하는 추가 로직을 구현하는 것이 좋습니다. */}
-      <FormControl variant="standard">
-        <InputLabel>Password confirm</InputLabel>
-        <Input type={showPassword ? 'text' : 'password'}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} edge="end">
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-          label="confirm"
-        />
-      </FormControl>
+      <TextField variant="standard" label="Email Address" onChange={onChangeEmail} />
+      <TextField variant="standard" type="password" label="Password" onChange={onChangePassword}/>
+      <TextField variant="standard" type="password" label="Password confirm" />
 
       <TextField variant="standard" label="name">Name</TextField>
 
       {/* 이메일 인증 */}
-      <TextField variant="standard" label="recovery email address" type="email">Recovery Email Address</TextField>
-      <TextField variant="standard" label="phone number">Phone Number</TextField>
+      <TextField variant="standard" label="recovery email address" type="email" onChange={validateEmail}>Recovery Email Address</TextField>
+      <TextField variant="standard" label="Email code">Email code</TextField>
       <FormControl variant="standard">
         <InputLabel>gender</InputLabel>
         <Select label="gender">

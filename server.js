@@ -16,9 +16,9 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// 미들웨어 추가
+
+// 클라이언트 애플리케이션과 서버 사이의 CORS 이슈를 해결하기 위해 cors 미들웨어를 사용하는 것이 좋습니다. 
 // app.use(cors());
-app.use(bodyParser.json());
 
 
 // 미들웨어 설정
@@ -73,12 +73,6 @@ function authenticateUser(req, res, next) {
   next(); //이 미들웨어 함수가 성공적으로 완료되면 next() 함수를 호출하여 요청을 다음 미들웨어 함수나 라우트 핸들러로 전달합니다.
 }
 
-app.post('/login', authenticateUser, (req, res) => {
-  // 사용자 인증이 성공하면 토큰을 발급
-  const payload = { id: req.user.id, username: req.user.username };
-  const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
-  res.json({ token });
-});
 
 
 
@@ -161,6 +155,19 @@ const auth = admin.auth();
 const db = admin.firestore();
 
 
+app.post('/api/register', (req, res) => {
+  // 프론트엔드에서 전송한 회원가입 정보를 받음
+  const { email, password } = req.body;
+
+  // 여기서 필요한 회원가입 로직을 수행하고 결과를 처리
+  // ...
+
+  // 회원가입 결과를 클라이언트에 응답
+  res.status(200).json({ message: '회원가입이 성공적으로 완료되었습니다.' });
+});
+
+
+
 // 라우트 핸들러
 // 사용자 로그인 및 Firebase 사용자 생성
 app.post('/login', async (req, res) => {
@@ -182,6 +189,19 @@ app.post('/login', async (req, res) => {
     res.status(401).json({ message: 'Authentication failed' });
   }
 });
+
+app.post('/login', authenticateUser, (req, res) => {
+  // 사용자 인증이 성공하면 토큰을 발급
+  const payload = { id: req.user.id, username: req.user.username };
+  const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
+  res.json({ token });
+});
+// 인증 방식:
+// 첫 번째 코드 블록은 Firebase를 사용하여 사용자의 이메일과 비밀번호를 인증합니다. auth.signInWithEmailAndPassword(email, password)를 사용하여 사용자를 인증하고, 성공하면 해당 사용자에게 토큰을 발급합니다. 이 방법은 Firebase Authentication을 사용하여 사용자 인증을 처리합니다.
+// 두 번째 코드 블록은 사용자의 이메일과 비밀번호를 직접 확인하는 대신, 먼저 사용자를 확인하는 authenticateUser라는 미들웨어 함수를 호출합니다. 이 함수는 사용자를 확인하고 성공하면 JWT(JSON Web Token)를 발급하여 클라이언트에게 전달합니다. 이 방법은 직접 사용자를 인증하고 JWT를 발급하는 데 사용됩니다.
+// 토큰 발급 방식:
+// 첫 번째 코드 블록에서는 Firebase가 제공하는 사용자 객체에서 getIdToken() 메서드를 사용하여 토큰을 발급합니다. Firebase Authentication에서 제공하는 사용자 인증 후 토큰을 발급하는 방식입니다.
+// 두 번째 코드 블록에서는 JWT 패키지를 사용하여 사용자 정보를 기반으로 토큰을 직접 발급합니다. jwt.sign(payload, secretKey, { expiresIn: '1h' })을 사용하여 JWT를 생성하고 클라이언트에게 전달합니다.
 
 
 // Firebase 데이터베이스 사용 예시
