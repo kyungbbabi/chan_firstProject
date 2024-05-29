@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState , useEffect, useRef } from "react";
 import axios from "axios";
 import GoogleLogin from '@leecheuk/react-google-login';
 import { gapi } from 'gapi-script';
@@ -20,6 +20,8 @@ export default function Login(props) {
 
   const [imageUrl, setImageUrl] = useState("");
 
+  const loginRef = useRef();
+
   useEffect(() => {
     const fetchImage = async () => {
       try {
@@ -30,6 +32,7 @@ export default function Login(props) {
       }
     }
     fetchImage();
+    loginRef.current.focus();
   }, []);
   
 
@@ -226,7 +229,7 @@ export default function Login(props) {
               <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", padding:"1em"}}>
                 <FormControl>
                   <InputLabel variant="standard">ID</InputLabel>
-                  <Input id="login-input" />
+                  <Input inputRef={loginRef} id="login-input" />
                 </FormControl>
                 <FormControl>
                   <InputLabel variant="standard">Password</InputLabel>
