@@ -60,7 +60,7 @@ export default function Login(props) {
     // Print the validation result
     console.log('Is form valid:', isValid);
 
-    // Print the error messages
+    // Print the error message
     console.log('Email error message:', emailErrorMessage);
     console.log('Password error message:', passwordErrorMessage);
   }
@@ -73,6 +73,18 @@ export default function Login(props) {
       [name]: value // [name]: value는 입력 필드의 name을 키로 사용하여 해당 키의 값을 value로 설정합니다. 이렇게 하면 특정 입력 필드의 값만 변경되고 나머지 필드는 그대로 유지됩니다.
     });
   };
+
+  useEffect(() => {
+    if (loginInfo.email) {
+      setEmailErrorMessage('');
+    }
+  }, [loginInfo.email]);
+
+  useEffect(() => {
+    if (loginInfo.password) {
+      setPasswordErrorMessage('');
+    }
+  }, [loginInfo.password]);
 
 
   // email 입력 필드에서 값이 변경된 경우:
@@ -267,19 +279,33 @@ export default function Login(props) {
                 <Typography variant="h5" gutterBottom align="center">
                   Sign in
                 </Typography>
-              <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", padding:"1em"}}>
-                <FormControl error={!!emailErrorMessage} fullWidth>
-                  <InputLabel variant="standard">Email</InputLabel>
-                  <Input inputRef={loginRef} name="email" onChange={handleLoginInfoChange} inputProps={{ autoComplete: "username" }} />
-                  <FormHelperText>{emailErrorMessage}</FormHelperText>
-                </FormControl>
-                <FormControl error={!!passwordErrorMessage} fullWidth>
-                  <InputLabel variant="standard">Password</InputLabel>
-                  <Input type="password" name="password" onChange={handleLoginInfoChange} inputProps={{ autoComplete: "current-password" }} />
-                  <FormHelperText>{passwordErrorMessage}</FormHelperText>
-                  <FormHelperText sx={{ textAlign: "end", margin: "0" }}>Forget password?</FormHelperText>
-                </FormControl>
-              </Box>
+                <Box component="form" onSubmit={loginValidate} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "1em" }}>
+                  <FormControl error={!!emailErrorMessage} fullWidth>
+                    <InputLabel variant="standard">Email</InputLabel>
+                    <Input inputRef={loginRef} onChange={handleLoginInfoChange} onFocus={() => setEmailErrorMessage('')} inputProps={{ autoComplete: "username" }} value={loginInfo.email}
+                      startAdornment={emailErrorMessage && (
+                        <InputAdornment position="start">
+                          <FormHelperText error sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {emailErrorMessage}
+                          </FormHelperText>
+                        </InputAdornment>
+                      )}
+                    />
+                  </FormControl>
+                  <FormControl error={!!passwordErrorMessage} fullWidth>
+                    <InputLabel variant="standard">Password</InputLabel>
+                    <Input type="password" onChange={handleLoginInfoChange} onFocus={() => setPasswordErrorMessage('')} inputProps={{ autoComplete: "off" }} value={loginInfo.password}
+                      startAdornment={passwordErrorMessage && (
+                        <InputAdornment position="start">
+                          <FormHelperText error sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {passwordErrorMessage}
+                          </FormHelperText>
+                        </InputAdornment>
+                      )}
+                    />
+                    <FormHelperText sx={{ textAlign: "end", margin: "0" }}>Forget password?</FormHelperText>
+                  </FormControl>
+                </Box>
               <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
                 <Button variant="contained" onClick={handleClickLogin}>Sign in</Button>
               </Box>
