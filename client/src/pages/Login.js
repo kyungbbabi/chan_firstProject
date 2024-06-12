@@ -22,6 +22,7 @@ export default function Login(props) {
   const [imageUrl, setImageUrl] = useState("");
 
   const loginRef = useRef();
+  const passwordRef = useRef();
 
   useEffect(() => {
     const fetchImage = async () => {
@@ -85,6 +86,7 @@ export default function Login(props) {
       setPasswordErrorMessage('');
     }
   }, [loginInfo.password]);
+
 
 
   // email 입력 필드에서 값이 변경된 경우:
@@ -280,32 +282,46 @@ export default function Login(props) {
                   Sign in
                 </Typography>
                 <Box component="form" onSubmit={loginValidate} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "1em" }}>
-                  <FormControl error={!!emailErrorMessage} fullWidth>
-                    <InputLabel variant="standard">Email</InputLabel>
-                    <Input inputRef={loginRef} onChange={handleLoginInfoChange} onFocus={() => setEmailErrorMessage('')} inputProps={{ autoComplete: "username" }} value={loginInfo.email}
-                      startAdornment={emailErrorMessage && (
-                        <InputAdornment position="start">
-                          <FormHelperText error sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            {emailErrorMessage}
-                          </FormHelperText>
-                        </InputAdornment>
-                      )}
-                    />
-                  </FormControl>
-                  <FormControl error={!!passwordErrorMessage} fullWidth>
-                    <InputLabel variant="standard">Password</InputLabel>
-                    <Input type="password" onChange={handleLoginInfoChange} onFocus={() => setPasswordErrorMessage('')} inputProps={{ autoComplete: "off" }} value={loginInfo.password}
-                      startAdornment={passwordErrorMessage && (
-                        <InputAdornment position="start">
-                          <FormHelperText error sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            {passwordErrorMessage}
-                          </FormHelperText>
-                        </InputAdornment>
-                      )}
-                    />
-                    <FormHelperText sx={{ textAlign: "end", margin: "0" }}>Forget password?</FormHelperText>
-                  </FormControl>
-                </Box>
+                <FormControl error={!!emailErrorMessage} fullWidth>
+                  <InputLabel variant="standard">Email</InputLabel>
+                  <Input inputRef={loginRef} name="email" onChange={handleLoginInfoChange} onFocus={() => setEmailErrorMessage('')} inputProps={{ autoComplete: "username" }} value={loginInfo.email}
+                    startAdornment={emailErrorMessage && (
+                      <InputAdornment position="start">
+                        <FormHelperText error sx={{ whiteSpace: 'nowrap', cursor: 'pointer' }}
+                          onClick={() => {
+                            setEmailErrorMessage('');
+                            if (loginRef.current) {
+                              loginRef.current.focus();
+                            }
+                          }}
+                        >
+                          {emailErrorMessage}
+                        </FormHelperText>
+                      </InputAdornment>
+                    )}
+                  />
+                </FormControl>
+                <FormControl error={!!passwordErrorMessage} fullWidth>
+                  <InputLabel variant="standard">Password</InputLabel>
+                  <Input type="password" name="password" onChange={handleLoginInfoChange} inputRef={passwordRef} onFocus={() => setPasswordErrorMessage('')} inputProps={{ autoComplete: "off" }} value={loginInfo.password}
+                    startAdornment={passwordErrorMessage && (
+                      <InputAdornment position="start">
+                        <FormHelperText error sx={{ whiteSpace: 'nowrap', cursor: 'pointer' }}
+                          onClick={() => {
+                            setPasswordErrorMessage('');
+                            if (passwordRef.current) {
+                              passwordRef.current.focus();
+                            }
+                          }}
+                        >
+                          {passwordErrorMessage}
+                        </FormHelperText>
+                      </InputAdornment>
+                    )}
+                  />
+                  <FormHelperText sx={{ textAlign: "end", margin: "0" }}>Forget password?</FormHelperText>
+                </FormControl>
+              </Box>
               <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
                 <Button variant="contained" onClick={handleClickLogin}>Sign in</Button>
               </Box>
