@@ -12,8 +12,10 @@ export default function Login(props) {
 
   const [state, dispatch] = useContext(store);
 
+  const [auth, setAuth] = useState(false);
   const [open, setOpen] = useState(false);
   const [loginInfo, setLoginInfo] = useState({ email: null, password: null });
+  const [errorMessage, setErrorMessage] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [fullWidth, setFullWidth] = useState(true);
@@ -53,17 +55,31 @@ export default function Login(props) {
     return valid;
   }
 
-  const handleClickLogin = (e) => {
-    e.preventDefault();
-    // Call loginValidate and capture the result
-    const isValid = loginValidate();
-
-    // Print the validation result
-    console.log('Is form valid:', isValid);
-
-    // Print the error message
-    console.log('Email error message:', emailErrorMessage);
-    console.log('Password error message:', passwordErrorMessage);
+  const handleClickLogin = async (e) => {
+    e.preventDefault(); //폼 제출과 같은 기본 동작을 방지합니다. 이는 페이지가 새로고침되지 않도록 하기 위함입니다.
+    dispatch({type: 'OpenLoading', payload: '로그인을 시도중입니다..'});
+    //  로딩 상태를 시작합니다. dispatch 함수는 Redux 또는 Context API를 사용하여 전역 상태를 업데이트하는 데 사용됩니다.
+    //  OpenLoading 액션을 통해 "로그인을 시도중입니다.."라는 메시지를 표시합니다.
+    loginValidate() && // loginValidate 함수가 로그인 정보를 검사합니다. 이 함수는 true 또는 false를 반환합니다.
+    await axios.post(`/auth/login`, loginInfo) // axios.post 메서드를 사용하여 서버에 로그인 요청을 보냅니다.  // loginInfo는 사용자의 로그인 정보(이메일과 비밀번호)를 포함하는 객체입니다.
+      .then(res => {
+        if (res.status === 200) { // 응답 상태 코드가 200이면 로그인 성공으로 간주합니다.
+          localStorage.setItem('token', res.data.token);
+          // navigate(-1);
+          dispatch({type: 'OpenSnackbar', payload: `로그인되었습니다.`});
+        }   // res.data.token을 로컬 스토리지에 저장합니다. // navigate(-1)을 호출하여 이전 페이지로 이동합니다. //  OpenSnackbar 액션을 통해 "로그인되었습니다."라는 메시지를 표시합니다.
+        else {
+          setAuth(true); //  응답 상태 코드가 200이 아닌 경우, setAuth(true)를 호출하여 인증 실패 상태를 설정합니다.
+        }
+      })
+      .catch(error => { // 로그인 실패 시 발생하는 오류를 처리합니다.
+        if (error.response.status === 401) {
+          setErrorMessage(error.response.data.message);
+        } else setErrorMessage('')
+        console.error(error.response);
+      }) // 응답 상태 코드가 401인 경우, setErrorMessage를 통해 인증 실패 메시지를 설정합니다.  // 기타 오류가 발생한 경우, 오류 메시지를 빈 문자열로 설정합니다.
+      .finally(() => dispatch({type: 'CloseLoading'})); // 로딩 상태를 종료합니다. 이 블록은 성공, 실패와 상관없이 항상 실행됩니다.
+    dispatch({type: 'CloseLoading'}) 
   }
   
   //이해하기
@@ -126,88 +142,6 @@ export default function Login(props) {
 //     console.error(error);
 //   }
 // }
-
-// const handleClickLogin = async (e) => {
-//   e.preventDefault(); 폼 제출과 같은 기본 동작을 방지합니다. 이는 페이지가 새로고침되지 않도록 하기 위함입니다.
-
-//   dispatch({type: 'OpenLoading', payload: '로그인을 시도중입니다..'});
-// 로딩 상태를 시작합니다. dispatch 함수는 Redux 또는 Context API를 사용하여 전역 상태를 업데이트하는 데 사용됩니다.
-// OpenLoading 액션을 통해 "로그인을 시도중입니다.."라는 메시지를 표시합니다.
-
-//   loginValidate() && loginValidate 함수가 로그인 정보를 검사합니다. 이 함수는 true 또는 false를 반환합니다.
-  //   await axios.post(`/auth/login`, loginInfo) 
-  // axios.post 메서드를 사용하여 서버에 로그인 요청을 보냅니다.
-  // loginInfo는 사용자의 로그인 정보(이메일과 비밀번호)를 포함하는 객체입니다.
-
-  //     .then(res => {
-  //       if (res.status === 200) {   응답 상태 코드가 200이면 로그인 성공으로 간주합니다.
-  //         localStorage.setItem('token', res.data.token);
-  //         navigate(-1);
-  //         dispatch({type: 'OpenSnackbar', payload: `로그인되었습니다.`});
-//   res.data.token을 로컬 스토리지에 저장합니다.
-// navigate(-1)을 호출하여 이전 페이지로 이동합니다.
-// OpenSnackbar 액션을 통해 "로그인되었습니다."라는 메시지를 표시합니다.
-  //       }
-  //       else {
-  //         setAuth(true);
-  // 응답 상태 코드가 200이 아닌 경우, setAuth(true)를 호출하여 인증 실패 상태를 설정합니다.
-  //       }
-  //     })
-  //     .catch(error => { 로그인 실패 시 발생하는 오류를 처리합니다.
-  //       if (error.response.status === 401) {
-  //         setErrorMessage(error.response.data.message);
-  //       } else setErrorMessage('')
-  //       console.error(error.response);
-  //   응답 상태 코드가 401인 경우, setErrorMessage를 통해 인증 실패 메시지를 설정합니다.
-  // 기타 오류가 발생한 경우, 오류 메시지를 빈 문자열로 설정합니다.
-  //     })
-  //     .finally(() => dispatch({type: 'CloseLoading'})); 로딩 상태를 종료합니다. 이 블록은 성공, 실패와 상관없이 항상 실행됩니다.
-  //   dispatch({type: 'CloseLoading'}) 
-  // };
-
-// // API 요청 시 토큰을 함께 보냄
-// async function fetchProtectedResource() {
-//   const token = localStorage.getItem('token');
-//   if (!token) {
-//     console.error('Token not found.');
-//     return;
-//   }
-
-//   try {
-//     const response = await fetch('/protected-resource', {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     if (!response.ok) {
-//       throw new Error('Failed to fetch protected resource.');
-//     }
-//     const data = await response.json();
-//     console.log('Protected resource:', data);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-  // const loginValidate = async (email, password) => {
-  //   try{
-  //     const response = await fetch('여기에_백엔드_API_URL을_입력하세요', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify({ email: email, password: password })
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error('Login failed.');
-  //     }
-  //     const user = await response.json();
-  //     return user;
-  //   } catch(error){
-  //     return null;
-  //   }
-  // }
-
 
 
   const GoogleButton = ({ onSocial }) => {
@@ -319,7 +253,11 @@ export default function Login(props) {
                       </InputAdornment>
                     )}
                   />
-                  <FormHelperText sx={{ textAlign: "end", margin: "0" }}>Forget password?</FormHelperText>
+                  <FormHelperText sx={{ textAlign: "end", margin: "0" }}>
+                    <Typography variant="body2" color="primary" sx={{ cursor: 'pointer' }} >
+                      Forget password?
+                    </Typography>
+                  </FormHelperText>
                 </FormControl>
               </Box>
               <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
