@@ -2,8 +2,19 @@ import React, {createContext, useReducer} from "react";
 import reducer from "./reducer";
 
 const initialState = {
-  user: null,
-  loading: false,
+  user: {
+    email: undefined,
+    id: 0,
+    image: {
+     
+    },
+    interests: [],
+    name: '사용자명',
+    message: '',
+  },
+  loading: {
+    open: false
+  },
 };
 
 const store = createContext(initialState);
