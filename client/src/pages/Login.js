@@ -2,18 +2,19 @@ import React, { useState , useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import GoogleLogin from '@leecheuk/react-google-login';
 import { gapi } from 'gapi-script';
-import { Box, Container, Typography, FormControl, InputLabel, Input, FormHelperText, Button, Divider, Dialog, DialogContent, InputAdornment } from "@mui/material";
+import { Box, Container, Typography, FormControl, InputLabel, Input, FormHelperText, Button, Divider, InputAdornment } from "@mui/material";
 import {store} from '../store/store'
-import Register from "./Register";
+import {useNavigate} from "react-router-dom";
 
 export default function Login(props) {
 
     // state variables to keep track of input field values
 
+  let navigate = useNavigate();  
+
   const [state, dispatch] = useContext(store);
 
   const [auth, setAuth] = useState(false);
-  const [open, setOpen] = useState(false);
   const [loginInfo, setLoginInfo] = useState({ email: null, password: null });
   const [errorMessage, setErrorMessage] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
@@ -103,8 +104,6 @@ export default function Login(props) {
     }
   }, [loginInfo.password]);
 
-
-
   // email 입력 필드에서 값이 변경된 경우:
     // name = "email" value = 입력된 이메일 값
     // loginInfo 상태가 { email: 입력된 이메일 값, password: 기존 password 값 }로 업데이트됩니다.
@@ -113,9 +112,6 @@ export default function Login(props) {
     // name = "password" value = 입력된 비밀번호 값
     // loginInfo 상태가 { email: 기존 email 값, password: 입력된 비밀번호 값 }로 업데이트됩니다.
   
-
-
-
 
 
 // // 로그인 요청
@@ -200,8 +196,7 @@ export default function Login(props) {
     )
   };
 
-  const handleClickOpen = () => {setOpen(true);};
-  const handleClickClose = () => {setOpen(false);};
+  const handleClickOpen = () => { navigate('/register'); };
 
 
 
@@ -221,7 +216,7 @@ export default function Login(props) {
                   <Input inputRef={loginRef} name="email" onChange={handleLoginInfoChange} onFocus={() => setEmailErrorMessage('')} inputProps={{ autoComplete: "username" }} value={loginInfo.email}
                     startAdornment={emailErrorMessage && (
                       <InputAdornment position="start">
-                        <FormHelperText error sx={{ whiteSpace: 'nowrap', cursor: 'pointer' }}
+                        <FormHelperText error sx={{ whiteSpace: 'nowrap', cursor: 'text' }}
                           onClick={() => {
                             setEmailErrorMessage('');
                             if (loginRef.current) {
@@ -240,7 +235,7 @@ export default function Login(props) {
                   <Input type="password" name="password" onChange={handleLoginInfoChange} inputRef={passwordRef} onFocus={() => setPasswordErrorMessage('')} inputProps={{ autoComplete: "off" }} value={loginInfo.password}
                     startAdornment={passwordErrorMessage && (
                       <InputAdornment position="start">
-                        <FormHelperText error sx={{ whiteSpace: 'nowrap', cursor: 'pointer' }}
+                        <FormHelperText error sx={{ whiteSpace: 'nowrap', cursor: 'text' }}
                           onClick={() => {
                             setPasswordErrorMessage('');
                             if (passwordRef.current) {
@@ -267,16 +262,11 @@ export default function Login(props) {
               <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
                 <GoogleButton />
               </Box>
-              <Box sx={{display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center", padding:"1rem"}}>
+              <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", padding: "1rem" }}>
                 <Typography>New Account?</Typography>
                 <Button onClick={handleClickOpen}>
                   Create Account
                 </Button>
-                <Dialog fullWidth={fullWidth} maxWidth={maxWidth} open={open} onClose={handleClickClose}>
-                  <DialogContent>
-                    <Register />
-                  </DialogContent>
-                </Dialog>
               </Box>
             </Box>
           </Box>
