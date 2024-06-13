@@ -1,12 +1,15 @@
 import React, { useState, useCallback } from "react";
 import { Stack, Typography, TextField, FormControl, InputLabel, MenuItem, Select, Button } from "@mui/material";
-import { Axios } from "axios";
+import axios from 'axios';
 
 export default function Register(props) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPwd, setConfirmPwd] = useState("");
+  const [name, setName] = useState("");
+  const [recoveryEmail, setRecoveryEmail] = useState("");
+  const [emailCode, setEmailCode] = useState("");
 
   const [emailMsg, setEmailMsg] = useState("");
   const [pwdMsg, setPwdMsg] = useState('');
@@ -82,7 +85,7 @@ export default function Register(props) {
     e.preventDefault();
 
     try { 
-      const res = await Axios.post("user/register/email", {email});
+      const res = await axios.post("user/register/email", {email});
       const { result } = res.data;
 
       if (!result) {
@@ -98,8 +101,41 @@ export default function Register(props) {
     }
   }
     
-  const handleClickRegister = (e) => {
-    e.preventDefault();
+  const handleClickRegister = async (e) => {
+    e.preventDefault();if (!validateEmail(email)) {
+      setEmailMsg("유효한 이메일을 입력해주세요.");
+      return;
+    }
+    if (!validatePwd(password)) {
+      setPwdMsg("유효한 비밀번호를 입력해주세요.");
+      return;
+    }
+    if (password !== confirmPwd) {
+      setConfirmPwdMsg("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    if (!validateEmail(recoveryEmail)) {
+      // setRecoveryEmailMsg("유효한 복구 이메일을 입력해주세요.");
+      return;
+    }
+
+    try {
+      const res = await axios.post("/user/register", {
+        email,
+        password,
+        name,
+        recoveryEmail,
+        genders,
+        emailCode
+      });
+      if (res.status === 200) {
+        console.log("회원가입 성공!");
+        // 추가적인 처리 (예: 로그인 페이지로 리디렉션)
+      }
+    } catch (err) {
+      console.error(err);
+      // 에러 메시지 처리
+    }
   }
 
   const genders = [ {value:'Man', label:'Man'}, {value:"Woman", label:"Woman"}]
@@ -110,7 +146,7 @@ export default function Register(props) {
       
       <TextField variant="standard" label="Email Address" onChange={onChangeEmail} />
       <TextField variant="standard" type="password" label="Password" onChange={onChangePassword}/>
-      <TextField variant="standard" type="password" label="Password confirm" />
+      <TextField variant="standard" type="password" label="Password confirm" onChange={onChangeConfirmPassword}/>
 
       <TextField variant="standard" label="name">Name</TextField>
 
