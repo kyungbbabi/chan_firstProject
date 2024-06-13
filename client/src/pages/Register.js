@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from "react";
-import { Stack, Typography, TextField, FormControl, InputLabel, MenuItem, Select, Button } from "@mui/material";
+import React, { useState, useCallback, useRef, useEffect } from "react";
+import { Container, Box, Stack, Typography, TextField, FormControl, InputLabel, MenuItem, Select, Button } from "@mui/material";
 import axios from 'axios';
 
 export default function Register(props) {
@@ -15,7 +15,23 @@ export default function Register(props) {
   const [pwdMsg, setPwdMsg] = useState('');
   const [confirmPwdMsg, setConfirmPwdMsg]= useState("")
 
+  const [imageUrl, setImageUrl] = useState('');
 
+  const inputRef = useRef('');
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await axios.get(`https://api.unsplash.com/photos/?client_id=${process.env.REACT_APP_UNSPLASH_ACCESS_KEY}`);
+        setImageUrl(response.data[0].urls.regular);
+      } catch (error) {
+        console.error('Error fetching images:', error);
+      }
+    }
+    fetchImage();
+
+    inputRef.current.focus(); //First input focus
+  }, []);
 
   // 1-1. 이메일 / 비밀번호 / 닉네임 유효성 검사
   const validateEmail = (email) => {
@@ -141,27 +157,37 @@ export default function Register(props) {
   const genders = [ {value:'Man', label:'Man'}, {value:"Woman", label:"Woman"}]
 
   return(
-    <Stack spacing={2}>
-      <Typography variant="h5" align="center">Sign Up</Typography>
-      
-      <TextField variant="standard" label="Email Address" onChange={onChangeEmail} />
-      <TextField variant="standard" type="password" label="Password" onChange={onChangePassword}/>
-      <TextField variant="standard" type="password" label="Password confirm" onChange={onChangeConfirmPassword}/>
+    <>
+      <Container sx={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh" }}>
+        <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
+          {imageUrl && <img src={imageUrl} alt="Unsplash" style={{ width: '800px', height: '600px' }} />}
+          <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%", backgroundColor:"wheat"}}>
+            <Box sx={{ display:"flex", flexDirection:"column", width: "70%"}}>
+              <Stack spacing={2}>
+                <Typography variant="h5" align="center">Sign Up</Typography>
+              
+                <TextField variant="standard" label="Email Address" onChange={onChangeEmail} inputRef={inputRef} />
+                <TextField variant="standard" type="password" label="Password" onChange={onChangePassword}/>
+                <TextField variant="standard" type="password" label="Password confirm" onChange={onChangeConfirmPassword}/>
 
-      <TextField variant="standard" label="name">Name</TextField>
+                <TextField variant="standard" label="name">Name</TextField>
 
-      {/* 이메일 인증 */}
-      <TextField variant="standard" label="recovery email address" type="email" onChange={validateEmail}>Recovery Email Address</TextField>
-      <TextField variant="standard" label="Email code">Email code</TextField>
-      <FormControl variant="standard">
-        <InputLabel>gender</InputLabel>
-        <Select label="gender">
-          <MenuItem value="Man">Man</MenuItem>
-          <MenuItem value="Woman">Woman</MenuItem>
-        </Select>
-      </FormControl>
-      <Button variant="contained" onClick={handleClickRegister}>Done</Button>
-    </Stack>
-
+                {/* 이메일 인증 */}
+                <TextField variant="standard" label="recovery email address" type="email" onChange={validateEmail}>Recovery Email Address</TextField>
+                <TextField variant="standard" label="Email code">Email code</TextField>
+                <FormControl variant="standard">
+                  <InputLabel>gender</InputLabel>
+                  <Select label="gender">
+                    <MenuItem value="Man">Man</MenuItem>
+                    <MenuItem value="Woman">Woman</MenuItem>
+                  </Select>
+                </FormControl>
+                <Button variant="contained" onClick={handleClickRegister}>Done</Button>
+              </Stack>
+            </Box>
+          </Box>
+        </Box>
+      </Container>
+    </>
   );
 }
