@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
-import { Container, Box, Stack, Typography, TextField, FormControl, InputLabel, MenuItem, Select, Button, Grid } from "@mui/material";
+import { Container, Box, Typography, TextField, FormControl, InputLabel, MenuItem, Select, Button, Grid } from "@mui/material";
 import axios from 'axios';
 
 export default function Register(props) {
@@ -50,12 +50,6 @@ export default function Register(props) {
   }
 
 
-  // 1-1에 잡아뒀던 유효성 검사 함수로 정리하기
-  const isEmailValid = validateEmail(email);
-  const isPwdValid = validatePwd(password);
-  const isConfirmPwd = password === confirmPwd;
-
-
   // 이메일 
   const onChangeEmail = useCallback ((e) => {
     const currEmail = e.target.value;
@@ -68,7 +62,7 @@ export default function Register(props) {
       }
     })
 
-    //비밀번호
+  //비밀번호
   const onChangePassword = useCallback((e) => {
     const currPwd = e.target.value;
     setPassword(currPwd);
@@ -162,54 +156,51 @@ export default function Register(props) {
         <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
           {imageUrl && <img src={imageUrl} alt="Unsplash" style={{ width: '800px', height: '600px' }} />}
           <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%", backgroundColor:"wheat"}}>
-            <Box sx={{ display:"flex", flexDirection:"column", width: "70%"}}>
-              <Stack spacing={2}>
-                <Typography variant="h5" align="center">Sign Up</Typography>
-
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField fullWidth variant="standard" label="Email Address" onChange={onChangeEmail} inputRef={inputRef} />
-                    <Typography variant="body2" color="error">{emailMsg}</Typography>
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <TextField fullWidth variant="standard" type="password" label="Password" onChange={onChangePassword} />
-                    <Typography variant="body2" color="error">{pwdMsg}</Typography>
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <TextField fullWidth variant="standard" type="password" label="Password confirm" onChange={onChangeConfirmPassword} />
-                    <Typography variant="body2" color="error">{confirmPwdMsg}</Typography>
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <TextField fullWidth variant="standard" label="Name" value={name} onChange={(e) => setName(e.target.value)} />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <TextField fullWidth variant="standard" label="Recovery Email Address" type="email" value={recoveryEmail} onChange={(e) => setRecoveryEmail(e.target.value)} />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <TextField fullWidth variant="standard" label="Email Code" value={emailCode} onChange={(e) => setEmailCode(e.target.value)} />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <FormControl fullWidth variant="standard">
-                      <InputLabel>Gender</InputLabel>
-                      <Select label="Gender" value={selectedGender} onChange={(e) => setSelectedGender(e.target.value)}>
-                        {genders.map((gender) => (
-                          <MenuItem key={gender.value} value={gender.value}>{gender.label}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Button fullWidth variant="contained" onClick={handleClickRegister}>Done</Button>
-                  </Grid>
+            <Box sx={{ display:"flex", flexDirection:"column", width: "75%"}}>
+              <Typography variant="h5" align="center">Sign Up</Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField fullWidth variant="standard" label="Email Address" onChange={onChangeEmail} inputRef={inputRef} />
+                  {emailMsg && <Typography variant="body2" color="error" style={{ marginTop: '8px' }}>{emailMsg}</Typography>}
                 </Grid>
-              </Stack>
+
+                <Grid item xs={12}>
+                  <TextField fullWidth variant="standard" type="password" label="Password" onChange={onChangePassword} />
+                  {pwdMsg && <Typography variant="body2" color="error">{pwdMsg}</Typography>}
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField fullWidth variant="standard" type="password" label="Password confirm" onChange={onChangeConfirmPassword} />
+                  {confirmPwdMsg && <Typography variant="body2" color="error">{confirmPwdMsg}</Typography>}
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField fullWidth variant="standard" label="Name" value={name} onChange={(e) => setName(e.target.value)} />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField fullWidth variant="standard" label="Recovery Email Address" type="email" value={recoveryEmail} onChange={(e) => setRecoveryEmail(e.target.value)} />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField fullWidth variant="standard" label="Email Code" value={emailCode} onChange={(e) => setEmailCode(e.target.value)} />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <FormControl fullWidth variant="standard">
+                    <InputLabel>Gender</InputLabel>
+                    <Select label="Gender" value={selectedGender} onChange={(e) => setSelectedGender(e.target.value)}>
+                      {genders.map((gender) => (
+                        <MenuItem key={gender.value} value={gender.value}>{gender.label}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Button fullWidth variant="contained" onClick={handleClickRegister}>Done</Button>
+                </Grid>
+              </Grid>
             </Box>
           </Box>
         </Box>
