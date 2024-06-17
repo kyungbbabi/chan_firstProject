@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 const PostWrite = () => {
 
@@ -29,17 +30,21 @@ const PostWrite = () => {
   };
 
   return(
-    <Box sx={{padding:"5em"}}>
+    <Box sx={{ padding: "5em" }}>
       <Paper elevation={3} style={{ padding: '3em' }}>
         <Typography variant="h5">글쓰기</Typography>
         <TextField label="제목" variant="outlined" fullWidth value={title} onChange={handleTitleChange} margin="normal" />
-        <TextField label="본 문" variant="outlined" fullWidth multiline rows={4} value={content} onChange={handleContentChange} margin="normal" />
-        <TextField accept="image/*" id="contained-button-file" type="file" style={{ display: 'none' }} onChange={handleImageChange} />
-        <label htmlFor="contained-button-file">
-          <Button variant="outlined" component="span" startIcon={<CloudUploadIcon />} style={{ marginTop: '16px' }}>이미지 업로드</Button>
-        </label>
-        {image && <Typography variant="body2">선택된 이미지: {image.name}</Typography>}
-        <Box mt={2}>
+        <TextField label="본 문" variant="outlined" fullWidth multiline rows={10} value={content} onChange={handleContentChange} margin="normal" />
+        {image && ( 
+          <Box mt={2} display="flex" alignItems="center">
+            <Typography variant="body2">선택된 이미지: {image.name}</Typography>
+              <CloseRoundedIcon  onClick={() => setImage(null)} style={{ cursor: 'pointer', marginLeft: '8px' }} />
+          </Box>
+        )}   
+        <Box mt={2} display="flex" justifyContent="space-between">  
+          <Button variant="outlined" component="label" startIcon={<CloudUploadIcon />}>
+            이미지 업로드 <input type="file" accept="image/*" hidden onChange={handleImageChange} />
+          </Button>
           <Button variant="contained" color="primary" onClick={handlePostSubmit}>
             글 제출
           </Button>
