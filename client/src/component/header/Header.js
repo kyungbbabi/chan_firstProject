@@ -14,15 +14,15 @@ const Header = (props) => {
 
   //left:"50%", transform:"translateX(-50%)" 없이 Lorem ipsum dolor가 정 가운데로 오는 방법
   return(
-    <>
-      <AppBar >
-        <Toolbar style={{padding:"0", display:"flex", justifyContent:"space-between"}}>
+    <Box marginBottom="3%">
+      <AppBar>
+        <Toolbar style={{ padding: "0", display: "flex", justifyContent: "space-between" }}>
           <HeaderMenu />
-          <Typography variant="h6" style={{position:"absolute", left:"50%", transform:"translateX(-50%)"}} onClick={handleClickHome}>Lorem ipsum dolor</Typography> 
+          <Typography variant="h6" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }} onClick={handleClickHome}>Lorem ipsum dolor</Typography> 
           <HeaderAvatar />
         </Toolbar>
       </AppBar>
-    </>
+    </Box>
   );
 
 }

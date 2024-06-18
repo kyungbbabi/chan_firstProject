@@ -35,8 +35,6 @@ export default function Home(props) {
     getImages();
   }, []);
 
-  console.log(images)
-
   const maxSteps = images.length;
 
   const handleStepChange = (step) => {
