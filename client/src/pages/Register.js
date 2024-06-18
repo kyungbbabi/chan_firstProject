@@ -151,60 +151,59 @@ export default function Register(props) {
   const genders = [ {value:'Man', label:'Man'}, {value:"Woman", label:"Woman"}]
 
   return(
-    <>
-      <Container sx={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh" }}>
-        <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
-          {imageUrl && <img src={imageUrl} alt="Unsplash" style={{ width: '800px', height: '600px' }} />}
-          <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%", backgroundColor:"wheat"}}>
-            <Box sx={{ display:"flex", flexDirection:"column", width: "75%"}}>
-              <Typography variant="h5" align="center">Sign Up</Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField fullWidth variant="standard" label="Email Address" onChange={onChangeEmail} inputRef={inputRef} />
-                  {emailMsg && <Typography variant="body2" color="error" style={{ marginTop: '8px' }}>{emailMsg}</Typography>}
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField fullWidth variant="standard" type="password" label="Password" onChange={onChangePassword} />
-                  {pwdMsg && <Typography variant="body2" color="error">{pwdMsg}</Typography>}
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField fullWidth variant="standard" type="password" label="Password confirm" onChange={onChangeConfirmPassword} />
-                  {confirmPwdMsg && <Typography variant="body2" color="error">{confirmPwdMsg}</Typography>}
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField fullWidth variant="standard" label="Name" value={name} onChange={(e) => setName(e.target.value)} />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField fullWidth variant="standard" label="Recovery Email Address" type="email" value={recoveryEmail} onChange={(e) => setRecoveryEmail(e.target.value)} />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField fullWidth variant="standard" label="Email Code" value={emailCode} onChange={(e) => setEmailCode(e.target.value)} />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <FormControl fullWidth variant="standard">
-                    <InputLabel>Gender</InputLabel>
-                    <Select label="Gender" value={selectedGender} onChange={(e) => setSelectedGender(e.target.value)}>
-                      {genders.map((gender) => (
-                        <MenuItem key={gender.value} value={gender.value}>{gender.label}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Button fullWidth variant="contained" onClick={handleClickRegister}>Done</Button>
-                </Grid>
+    <Container sx={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh" }}>
+      <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
+        {imageUrl && <img src={imageUrl} alt="Unsplash" style={{ width: '800px', height: '600px' }} />}
+        <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%", backgroundColor:"wheat"}}>
+          <Box sx={{ display:"flex", flexDirection:"column", width: "75%"}}>
+            <Typography variant="h5" align="center">Sign Up</Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField fullWidth variant="standard" label="Email Address" onChange={onChangeEmail} inputRef={inputRef} />
+                {emailMsg && <Typography variant="body2" color="error" style={{ marginTop: '8px' }}>{emailMsg}</Typography>}
               </Grid>
-            </Box>
+
+              <Grid item xs={12}>
+                <TextField fullWidth variant="standard" type="password" label="Password" onChange={onChangePassword} />
+                {pwdMsg && <Typography variant="body2" color="error">{pwdMsg}</Typography>}
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField fullWidth variant="standard" type="password" label="Password confirm" onChange={onChangeConfirmPassword} />
+                {confirmPwdMsg && <Typography variant="body2" color="error">{confirmPwdMsg}</Typography>}
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField fullWidth variant="standard" label="Name" value={name} onChange={(e) => setName(e.target.value)} />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField fullWidth variant="standard" label="Recovery Email Address" type="email" value={recoveryEmail} onChange={(e) => setRecoveryEmail(e.target.value)} />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField fullWidth variant="standard" label="Email Code" value={emailCode} onChange={(e) => setEmailCode(e.target.value)} />
+              </Grid>
+
+              <Grid item xs={12}>
+                <FormControl fullWidth variant="standard">
+                  <InputLabel>Gender</InputLabel>
+                  <Select label="Gender" value={selectedGender} onChange={(e) => setSelectedGender(e.target.value)}>
+                    {genders.map((gender) => (
+                      <MenuItem key={gender.value} value={gender.value}>{gender.label}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12}>
+                <Button fullWidth variant="contained" onClick={handleClickRegister}>Done</Button>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
-      </Container>
-    </>
+      </Box>
+    </Container>
   );
+
 }
