@@ -34,7 +34,7 @@ const PostWrite = () => {
       <Paper elevation={3} style={{ padding: '3em' }}>
         <Typography variant="h5">글쓰기</Typography>
         <TextField label="제목" variant="outlined" fullWidth value={title} onChange={handleTitleChange} margin="normal" />
-        <TextField label="본 문" variant="outlined" fullWidth multiline rows={10} value={content} onChange={handleContentChange} margin="normal" />
+        <TextField label="본 문" variant="outlined" fullWidth multiline rows={15} value={content} onChange={handleContentChange} margin="normal" />
         {image && ( 
           <Box mt={2} display="flex" alignItems="center">
             <Typography variant="body2">선택된 이미지: {image.name}</Typography>
