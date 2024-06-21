@@ -10,7 +10,7 @@ export default function Login(props) {
 
     // state variables to keep track of input field values
 
-  let navigate = useNavigate();  
+  const navigate = useNavigate();  
 
   const [state, dispatch] = useContext(store);
 

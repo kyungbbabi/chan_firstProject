@@ -7,8 +7,8 @@ import PostAddIcon from '@mui/icons-material/PostAdd';
 
 const Header = (props) => {
   
-  let navigate = useNavigate();
-  let location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClickHome = () => {
     navigate('/');
