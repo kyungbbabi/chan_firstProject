@@ -7,7 +7,7 @@ const HeaderMenu = (props) => {
   // navigate 추가하기
   // Home은 제목(Lorem ipsum dolor) 누면 돌아가게끔!
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleClickMain = () => {
     navigate('/main');

@@ -67,7 +67,7 @@ export default function Portfolio(){
     // },
   ];
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handelClickPortfolioDetail = () => {
     navigate("/portfoliodetail");

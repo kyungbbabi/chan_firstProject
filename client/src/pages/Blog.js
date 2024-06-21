@@ -10,7 +10,7 @@ export default function Blog(){
 
   const [blogPosts, setBlogPosts] = useState([]);
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // 로그인된 사용자의 토큰 또는 인증 정보를 사용하여 백엔드 API를 호출
