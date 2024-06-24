@@ -10,6 +10,9 @@ import PortfolioDetail from "./pages/PortfolioDetail";
 import PostWrite from "./component/PostWrite";
 import BlogDetail from "./pages/BlogDetail";
 import Header from "./component/header/Header";
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
+import Notifications from "./pages/Notifications";
 
 
 
@@ -29,6 +32,9 @@ function App() {
         <Route path={"/portfolio"} element={<Portfolio />}></Route>
         <Route path={"/portfoliodetail"} element={<PortfolioDetail />}></Route>
         <Route path={"/postwrite"} element={<PostWrite />}></Route>
+        <Route path={"/dashboard"} element={<Dashboard />}></Route>
+        <Route path={"/profile"} element={<Profile />}></Route>
+        <Route path={"/notifications"} element={<Notifications />}></Route>
       </Routes>
     </BrowserRouter>
   )
