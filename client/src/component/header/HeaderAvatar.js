@@ -8,7 +8,7 @@ const HeaderAvatar = () => {
 
   const settings = [
     { label: 'Profile', action: () => handleMenuItemClick('Profile') },
-    { label: 'Account', action: () => handleMenuItemClick('Account') },
+    { label: 'Notifications', action: () => handleMenuItemClick('Notifications') },
     { label: 'Dashboard', action: () => handleMenuItemClick('Dashboard') },
     { label: 'Logout', action: () => handleMenuItemClick('Logout') },
   ];
@@ -29,12 +29,15 @@ const HeaderAvatar = () => {
     switch (setting) {
       case 'Profile':
         // Handle Profile click
+        navigate('/profile');
         break;
-      case 'Account':
+      case 'Notifications':
         // Handle Account click
+        navigate('/notifications');
         break;
       case 'Dashboard':
         // Handle Dashboard click
+        navigate('/dashboard');
         break;
       case 'Logout':
         localStorage.removeItem('token');
