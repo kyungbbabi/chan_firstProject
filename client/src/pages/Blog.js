@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function Blog(){
 
   const [blogPosts, setBlogPosts] = useState([]);
+  const [isLiked, setIsLiked] = useState(false);
 
   const navigate = useNavigate();
 
@@ -35,6 +36,33 @@ export default function Blog(){
     navigate("/blogdetail");
   };
 
+  const handleLikeClick = () => {
+    setIsLiked(!isLiked); // 클릭할 때마다 상태를 토글
+  };
+
+  // const itemData = [
+  //   {
+  //     img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
+  //     title: 'Breakfast',
+  //     author: '@bkristastucchio',
+  //   },
+  //   {
+  //     img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+  //     title: 'Burger',
+  //     author: '@rollelflex_graphy726',
+  //   },
+  //   {
+  //     img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
+  //     title: 'Camera',
+  //     author: '@helloimnik',
+  //   },
+  //   {
+  //     img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
+  //     title: 'Coffee',
+  //     author: '@nolanissac',
+  //   },
+  // ]
+
   return(
     <Box>
       <Grid sx={{display: "flex", alignItems:"center", justifyContent:"center", padding: "3em"}} >
@@ -44,9 +72,9 @@ export default function Blog(){
             <p>{post.content}</p>
           </li>
         ))} */}
-        <Card sx={{maxWidth: 345}} onClick={handelClickBlogDetail} >
+        <Card sx={{maxWidth: 345}}>
           <CardMedia component="img" height="194" image={Newyork} />
-          <CardContent>
+          <CardContent onClick={handelClickBlogDetail}>
             <Typography variant="h5">
             Title 1
             </Typography>
@@ -60,7 +88,7 @@ export default function Blog(){
             <Typography>
               yyyy mm dd
             </Typography>
-            <IconButton>
+            <IconButton onClick={handleLikeClick} style={{ color: isLiked ? 'red' : 'inherit' }}>
               <FavoriteIcon fontSize="small"/>
             </IconButton>
           </CardActions>
