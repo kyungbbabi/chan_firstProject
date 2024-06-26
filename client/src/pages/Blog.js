@@ -37,7 +37,7 @@ export default function Blog(){
 
   return(
     <Box>
-      <Grid sx={{display: "flex", alignItems:"center", justifyContent:"center", marginTop:"4em", padding:"3em"}} >
+      <Grid sx={{display: "flex", alignItems:"center", justifyContent:"center", padding: "3em"}} >
       {/* {blogPosts.map((post) => (
           <li key={post.id}>
             <h2>{post.title}</h2>

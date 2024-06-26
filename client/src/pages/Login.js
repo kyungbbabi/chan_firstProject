@@ -205,17 +205,17 @@ export default function Login(props) {
       <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
         {imageUrl && <img src={imageUrl} alt="Unsplash" style={{ width: '800px', height: '600px' }} />}
         <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%", backgroundColor:"wheat"}}>
-          <Box sx={{ display:"flex", flexDirection:"column"}}>
+          <Box sx={{display:"flex", flexDirection:"column"}}>
               <Typography variant="h5" gutterBottom align="center">
                 Sign in
               </Typography>
-              <Box component="form" onSubmit={loginValidate} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "1em" }}>
+              <Box component="form" onSubmit={loginValidate} sx={{display: "flex", flexDirection: "column", justifyContent: "center", padding: "1em"}}>
               <FormControl error={!!emailErrorMessage} fullWidth>
                 <InputLabel variant="standard">Email</InputLabel>
                 <Input inputRef={loginRef} name="email" onChange={handleLoginInfoChange} onFocus={() => setEmailErrorMessage('')} inputProps={{ autoComplete: "username" }} value={loginInfo.email}
                   startAdornment={emailErrorMessage && (
                     <InputAdornment position="start">
-                      <FormHelperText error sx={{ whiteSpace: 'nowrap', cursor: 'text' }}
+                      <FormHelperText error sx={{whiteSpace: 'nowrap', cursor: 'text'}}
                         onClick={() => {
                           setEmailErrorMessage('');
                           if (loginRef.current) {
@@ -231,10 +231,10 @@ export default function Login(props) {
               </FormControl>
               <FormControl error={!!passwordErrorMessage} fullWidth>
                 <InputLabel variant="standard">Password</InputLabel>
-                <Input type="password" name="password" onChange={handleLoginInfoChange} inputRef={passwordRef} onFocus={() => setPasswordErrorMessage('')} inputProps={{ autoComplete: "off" }} value={loginInfo.password}
+                <Input type="password" name="password" onChange={handleLoginInfoChange} inputRef={passwordRef} onFocus={() => setPasswordErrorMessage('')} inputProps={{autoComplete: "off"}} value={loginInfo.password}
                   startAdornment={passwordErrorMessage && (
                     <InputAdornment position="start">
-                      <FormHelperText error sx={{ whiteSpace: 'nowrap', cursor: 'text' }}
+                      <FormHelperText error sx={{whiteSpace: 'nowrap', cursor: 'text'}}
                         onClick={() => {
                           setPasswordErrorMessage('');
                           if (passwordRef.current) {
@@ -247,8 +247,8 @@ export default function Login(props) {
                     </InputAdornment>
                   )}
                 />
-                <FormHelperText sx={{ textAlign: "end", margin: "0" }}>
-                  <Typography variant="body2" color="primary" sx={{ cursor: 'pointer' }} >
+                <FormHelperText sx={{textAlign: "end", margin: "0"}}>
+                  <Typography variant="body2" color="primary" sx={{cursor: 'pointer'}}>
                     Forget password?
                   </Typography>
                 </FormHelperText>
@@ -261,7 +261,7 @@ export default function Login(props) {
             <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
               <GoogleButton />
             </Box>
-            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", padding: "1rem" }}>
+            <Box sx={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", padding: "1rem"}}>
               <Typography>New Account?</Typography>
               <Button onClick={handleClickOpen}>
                 Create Account
