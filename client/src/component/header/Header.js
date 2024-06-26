@@ -23,23 +23,23 @@ const Header = (props) => {
   //left:"50%", transform:"translateX(-50%)" 없이 Lorem ipsum dolor가 정 가운데로 오는 방법
   return(
     <Box marginBottom="3%">
-    <AppBar>
-      <Toolbar style={{ padding: "0", display: "flex", justifyContent: "space-between" }}>
-        <HeaderMenu />
-        <Typography variant="h6" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }} onClick={handleClickHome}>
-          Lorem ipsum dolor
-        </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {showPostWriteIcon && (
-            <IconButton color="inherit" onClick={handelClickPostWrite} sx={{ marginRight: 2 }}>
-              <PostAddIcon />
-            </IconButton>
-          )}
-          <HeaderAvatar />
-        </Box>
-      </Toolbar>
-    </AppBar>
-  </Box>
+      <AppBar>
+        <Toolbar style={{ padding: "0", display: "flex", justifyContent: "space-between" }}>
+          <HeaderMenu />
+          <Typography variant="h6" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", cursor: "pointer" }} onClick={handleClickHome}>
+            Lorem ipsum dolor
+          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            {showPostWriteIcon && (
+              <IconButton color="inherit" onClick={handelClickPostWrite} sx={{ marginRight: 2 }}>
+                <PostAddIcon />
+              </IconButton>
+            )}
+            <HeaderAvatar />
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 
 }

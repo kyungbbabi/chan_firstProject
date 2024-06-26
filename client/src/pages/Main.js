@@ -70,13 +70,13 @@ export default function Main() {
   ];
 
   return(
-    <Box sx={{padding:"3em"}}>
-      <Grid sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        <Typography variant="h5" sx={{ alignSelf: "center", mt: 2 }}>
+    <Box sx={{padding: "3em"}}>
+      <Grid sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
+        <Typography variant="h5" sx={{alignSelf: "center", mt: 2}}>
           Blog
         </Typography>
-        <Grid sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <ImageList cols={4} sx={{ width: "50%", height: "50%" }}>
+        <Grid sx={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+          <ImageList cols={4} sx={{width: "50%", height: "50%"}}>
             {itemData.map((item) => (
               <ImageListItem key={item.img}>
                 <img src={`${item.img}`} />
@@ -85,11 +85,11 @@ export default function Main() {
             ))}
           </ImageList>
         </Grid>
-        <Typography variant="h5" sx={{ alignSelf: "center", mt: 2 }}>
+        <Typography variant="h5" sx={{alignSelf: "center", mt: 2}}>
           Project
         </Typography>
-        <Grid sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <ImageList cols={4} sx={{ width: "50%", height: "50%" }}>
+        <Grid sx={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+          <ImageList cols={4} sx={{width: "50%", height: "50%"}}>
             {itemData2.map((item) => (
               <ImageListItem key={item.img}>
                 <img src={`${item.img}`} />

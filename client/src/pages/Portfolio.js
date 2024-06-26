@@ -75,7 +75,7 @@ export default function Portfolio(){
 
   return(
     <Box>
-      <Grid sx={{display: "flex", alignItems:"center", justifyContent:"center", marginTop:"4em"}}>
+      <Grid sx={{display: "flex", alignItems:"center", justifyContent:"center", padding: "3em"}}>
         <ImageList sx={{}}>
           {itemData.map((item) => (
             <ImageListItem key={item.img} onClick={handelClickPortfolioDetail}>

@@ -58,21 +58,21 @@ export default function PortfolioDetail() {
   ];
 
   return(
-    <Box sx={{ padding: "3em" }}>
-      <Grid sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+    <Box sx={{padding: "3em"}}>
+      <Grid sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
         <ImageList cols={1}>
           {itemData.map((item) => (
-            <ImageListItem key={item.img} sx={{ display: "flex", alignItems: "center" }}>
-              <img src={`${item.img}`} style={{ width: "50%", height: "50%" }} />
+            <ImageListItem key={item.img} sx={{display: "flex", alignItems: "center"}}>
+              <img src={`${item.img}`} style={{width: "50%", height: "50%"}} />
               <ImageListItemBar title={item.title} subtitle={<span>{item.author}</span>} position="below" />
             </ImageListItem>
           ))}
         </ImageList>
-        <Typography variant="h5" sx={{ alignSelf: "center", mt: 2 }}>
+        <Typography variant="h5" sx={{alignSelf: "center", mt: 2}}>
           View more projects
         </Typography>
-        <Grid sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <ImageList cols={4} sx={{ width: "50%", height: "50%" }}>
+        <Grid sx={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+          <ImageList cols={4} sx={{width: "50%", height: "50%"}}>
             {itemData2.map((item) => (
               <ImageListItem key={item.img}>
                 <img src={`${item.img}`} />

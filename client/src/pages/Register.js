@@ -151,9 +151,9 @@ export default function Register(props) {
   const genders = [ {value:'Man', label:'Man'}, {value:"Woman", label:"Woman"}]
 
   return(
-    <Container sx={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh" }}>
+    <Container sx={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh"}}>
       <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
-        {imageUrl && <img src={imageUrl} alt="Unsplash" style={{ width: '800px', height: '600px' }} />}
+        {imageUrl && <img src={imageUrl} alt="Unsplash" style={{ width: '800px', height: '600px'}} />}
         <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%", backgroundColor:"wheat"}}>
           <Box sx={{ display:"flex", flexDirection:"column", width: "75%"}}>
             <Typography variant="h5" align="center">Sign Up</Typography>
