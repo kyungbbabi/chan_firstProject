@@ -36,7 +36,8 @@ export default function Blog(){
     navigate("/blogdetail");
   };
 
-  const handleLikeClick = () => {
+  const handleLikeClick = (e) => {
+    e.stopPropagation();
     setIsLiked(!isLiked); // 클릭할 때마다 상태를 토글
   };
 
@@ -72,9 +73,9 @@ export default function Blog(){
             <p>{post.content}</p>
           </li>
         ))} */}
-        <Card sx={{maxWidth: 345}}>
+        <Card sx={{maxWidth: 345}} onClick={handelClickBlogDetail}>
           <CardMedia component="img" height="194" image={Newyork} />
-          <CardContent onClick={handelClickBlogDetail}>
+          <CardContent>
             <Typography variant="h5">
             Title 1
             </Typography>
