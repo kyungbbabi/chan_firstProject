@@ -6,7 +6,7 @@ export default function BlogDetail() {
   return (
     <Box sx={{padding: "3em"}}>
       <Grid container direction="column" alignItems="center" sx={{maxWidth: "50%", margin: "auto"}}>
-        <Grid item xs={12} sx={{ mb: 3 }}>
+        <Grid item xs={12} sx={{mb: 3}}>
           <Typography variant="h4" textAlign="center" sx={{fontFamily: "Roboto", fontWeight: 600}}>
             Lorem ipsum dolor
           </Typography>

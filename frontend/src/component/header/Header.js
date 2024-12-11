@@ -22,7 +22,7 @@ const Header = (props) => {
 
   //left:"50%", transform:"translateX(-50%)" 없이 Lorem ipsum dolor가 정 가운데로 오는 방법
   return(
-    <Box marginBottom="3%">
+    <Box>
       <AppBar>
         <Toolbar style={{ padding: "0", display: "flex", justifyContent: "space-between" }}>
           <HeaderMenu />
