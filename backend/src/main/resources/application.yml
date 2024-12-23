@@ -1,6 +1,8 @@
-spring.application.name=chan-firstproject
+spring:
+  application:
+    name: chan-firstproject
+  profiles:
+    active: local
 
-# 데이터 소스 - MYSQL
-spring.datasource.url=jdbc:mysql://localhost:3306/chan_db
-spring.datasource.username=chan
-spring.datasource.password=
+server:
+  port: 8080
