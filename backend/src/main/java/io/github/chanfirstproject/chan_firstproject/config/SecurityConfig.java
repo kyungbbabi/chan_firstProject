@@ -12,7 +12,7 @@ import io.github.chanfirstproject.chan_firstproject.security.jwt.provider.JwtTok
 @Configuration            // 스프링 빈 설정 클래스로 지정
 @EnableWebSecurity        // 스프링 시큐리티 설정 빈으로 등록
 public class SecurityConfig {
-    
+  
   // JWT 토큰 제공자 주입 필요
   private final JwtTokenProvider jwtTokenProvider;
 
