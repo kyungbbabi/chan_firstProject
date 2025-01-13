@@ -5,9 +5,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import io.github.chanfirstproject.chan_firstproject.security.jwt.provider.JwtTokenProvider;
+
+// SecurityConfig 보완
+
+// 현재 SecurityConfig에서는 기본적인 CSRF 비활성화와 세션 관리만 설정되어 있습니다.
+// API 엔드포인트별 접근 권한 설정이 필요합니다 (예: /login, /register는 누구나 접근 가능하게, 나머지는 인증 필요하도록)
+// JwtAuthenticationFilter를 SecurityFilterChain에 추가해야 합니다
 
 @Configuration            // 스프링 빈 설정 클래스로 지정
 @EnableWebSecurity        // 스프링 시큐리티 설정 빈으로 등록
@@ -31,6 +39,11 @@ public class SecurityConfig {
     );
 
     return http.build();
+  }
+
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
   }
 
 }
