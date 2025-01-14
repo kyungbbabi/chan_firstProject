@@ -1,5 +1,6 @@
 package io.github.chanfirstproject.chan_firstproject.service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.dao.DuplicateKeyException;
@@ -82,10 +83,6 @@ public class UserService {
     }
   }
 
-  private String generateVerificationCode(){
-    return UUID.randomUUID().toString().substring(0, 8);
-  }
-
   // 이메일 인증 코드 생성 및 발송
   public void sendVerificationEmail(String email, String code){
     SimpleMailMessage message = new SimpleMailMessage();
@@ -94,6 +91,65 @@ public class UserService {
     message.setText("인증 코드" + code);
     emailSender.send(message);
 
+  }
+
+  @Transactional
+  public void verifyEmail(String email, String code){
+    User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+    if (!code.equals(user.getEmailVerificationCode())) {
+      throw new InvalidVerificationCodeException("잘못된 인증코드 입니다.");
+    }
+
+    user.setEmailVerified(true);
+    user.setEmailVerificationCode(null);
+    userRepository.save(user);
+  }
+
+  @Transactional
+  public void resetPassword(String token, String newPassword){
+    User user = userRepository.findByPasswordResetToken(token).orElseThrow(() -> new InvalidTokenException("유효하지 않는 토큰입니다."));
+    if (user.getPasswordResetTokenExpiry().isBefore(LocalDateTime.now())) {
+      throw new TokenExpiredException("만료된 토큰입니다.");
+    }
+
+    user.setPassword(passwordEncoder.encode(newPassword));
+    user.setPasswordResetToken(null);
+    user.setPasswordResetTokenExpiry(null);
+    userRepository.save(user);
+  }
+
+  public void sendPasswordResetEmail(String email){
+    User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+    String resetToken = generatePasswordResetToken();
+    user.setPasswordResetToken(resetToken);
+    user.setPasswordResetTokenExpiry(LocalDateTime.now().plusHours(24));
+
+    // 비밀번호 재설정 이메일 발송
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setTo(email);
+    message.setSubject("비밀번호 재설정");
+    emailSender.send(message);
+  } 
+
+  // 사용자 정보 수정
+  @Transactional
+  public UserDto.Response updateProfile(String username, UserDto.UpdateRequest request){
+    User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+    if (request.getNewPassword() != null) {
+      // 현재 비밀번호 확인
+      if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+        throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
+      }
+      user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+    }
+  }
+ 
+  private String generateVerificationCode(){
+    return UUID.randomUUID().toString().substring(0, 8);
+  }
+
+  private String generatePasswordResetToken(){
+    return UUID.randomUUID().toString();
   }
 
 }

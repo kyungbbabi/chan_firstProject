@@ -15,6 +15,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
   // - username으로 사용자를 찾는 메서드
   // - Optional로 감싸서 결과가 없을 경우를 안전하게 처리
 
+  Optional<User> findByEmail(String email);
+  // - email으로 사용자를 찾는 메서드
+  // - Optional로 감싸서 결과가 없을 경우를 안전하게 처리
+
+  Optional<User> findByPasswordResetToken(String token);
+  // - password찾는 메소드
+  // - Optional로 감싸서 결과가 없을 경우를 안전하게 처리
+
   boolean existsByUsername(String username);
   // - 해당 username을 가진 사용자가 있는지 확인
   // - 회원가입 시 중복 검사할 때 사용

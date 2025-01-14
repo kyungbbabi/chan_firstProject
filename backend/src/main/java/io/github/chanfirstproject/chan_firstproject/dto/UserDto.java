@@ -19,9 +19,16 @@ public class UserDto {
   
   @Data
   public static class RegisterRequest {
-      private String username;
-      private String password;
-      private String email;
+    private String username;
+    private String password;
+    private String email;
+  }
+
+  @Data
+  public static class UpdateRequest {
+    private String currentPassword;
+    private String newPassword;
+    private String email;
   }
 
   @Data

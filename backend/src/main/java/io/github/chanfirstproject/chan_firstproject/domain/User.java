@@ -1,5 +1,7 @@
 package io.github.chanfirstproject.chan_firstproject.domain;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,5 +44,11 @@ public class User {
 
   @Column
   private boolean emailVerified;
+
+  @Column
+  private String passwordResetToken;
+
+  @Column
+  private LocalDateTime passwordResetTokenExpiry;
 
 }
