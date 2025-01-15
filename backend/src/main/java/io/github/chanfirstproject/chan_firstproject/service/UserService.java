@@ -142,6 +142,23 @@ public class UserService {
       }
       user.setPassword(passwordEncoder.encode(request.getNewPassword()));
     }
+    // 이메일이 변경된 경우
+    if (request.getEmail() != null && !request.getEmail().equals(user.getEmail())) {
+      user.setEmail(request.getEmail());
+      user.setEmailVerified(false);
+      String verificationCode = generateVerificationCode();
+      user.setEmailVerificationCode(verificationCode);
+      sendVerificationEmail(user.getEmail(), verificationCode);
+    }
+    // 변경된 내용 저장
+    userRepository.save(user);
+    // 응답 데이터 생성
+    return UserDto.Response.builder()
+      .id(user.getId())
+      .username(user.getUsername())
+      .email(user.getEmail())
+      .accessToken(jwtTokenProvider.createToken(user.getUsername()))
+      .build();
   }
  
   private String generateVerificationCode(){
@@ -150,6 +167,24 @@ public class UserService {
 
   private String generatePasswordResetToken(){
     return UUID.randomUUID().toString();
+  }
+  // 각종 예외 클래스들을 내부 static 클래스로 정의
+  public static class InvalidVerificationCodeException extends RuntimeException {
+    public InvalidVerificationCodeException(String message) {
+        super(message);
+    }
+  }
+
+  public static class TokenExpiredException extends RuntimeException {
+    public TokenExpiredException(String message) {
+      super(message);
+    }
+  }
+
+  public static class InvalidTokenException extends RuntimeException {
+    public InvalidTokenException(String message) {
+      super(message);
+    }
   }
 
 }

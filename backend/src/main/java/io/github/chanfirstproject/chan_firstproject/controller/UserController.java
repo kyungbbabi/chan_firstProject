@@ -15,7 +15,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController // JSON 응답을 반환하는 REST API 컨트롤러
@@ -92,6 +91,12 @@ public class UserController{
   @Getter
   @AllArgsConstructor
   private static class ErrorResponse {
+    private String message;
+  }
+
+  @Getter
+  @AllArgsConstructor
+  private static class SuccessResponse {
     private String message;
   }
   

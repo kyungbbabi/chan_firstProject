@@ -11,10 +11,8 @@ public class UserDto {
   
   @Data
   public static class LoginRequest {
-    
     private String username;
     private String password;
-    
   }
   
   @Data
@@ -33,14 +31,12 @@ public class UserDto {
 
   @Data
   @Builder
-  public static class Response {
-    
+  public static class Response {    
     private Long id;
     private String username;
     private String password;
     private String email;
     private String accessToken;
-    
   }
 
 }
