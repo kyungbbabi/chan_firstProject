@@ -8,7 +8,6 @@ const HeaderAvatar = () => {
 
   const settings = [
     { label: 'Profile', action: () => handleMenuItemClick('Profile') },
-    { label: 'Notifications', action: () => handleMenuItemClick('Notifications') },
     { label: 'Dashboard', action: () => handleMenuItemClick('Dashboard') },
     { label: 'Logout', action: () => handleMenuItemClick('Logout') },
   ];
@@ -30,10 +29,6 @@ const HeaderAvatar = () => {
       case 'Profile':
         // Handle Profile click
         navigate('/profile');
-        break;
-      case 'Notifications':
-        // Handle Account click
-        navigate('/notifications');
         break;
       case 'Dashboard':
         // Handle Dashboard click

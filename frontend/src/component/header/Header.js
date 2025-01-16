@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import HeaderMenu from "./HeaderMenu";
-import { AppBar, Box, Toolbar, Typography, IconButton } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography, IconButton, Badge } from "@mui/material";
 import HeaderAvatar from "./HeaderAvatar";
 import { useNavigate , useLocation } from "react-router-dom";
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import Notifications from "../Notifications";
 
 const Header = (props) => {
   
   const navigate = useNavigate();
   const location = useLocation();
+  const [notificationOpen, setNotificationOpen] = useState(false);
+
+  const notificationCount = 2;
 
   const handleClickHome = () => {
     navigate('/');
@@ -17,7 +22,7 @@ const Header = (props) => {
   const handelClickPostWrite = () => {
     navigate('/postwrite');
   };
-
+  // blog, portfolio에서 글쓰기 버튼 보이기
   const showPostWriteIcon = location.pathname === '/blog' || location.pathname === '/portfolio';
 
   //left:"50%", transform:"translateX(-50%)" 없이 Lorem ipsum dolor가 정 가운데로 오는 방법
@@ -35,10 +40,16 @@ const Header = (props) => {
                 <PostAddIcon />
               </IconButton>
             )}
+            <IconButton color="inherit" onClick={() => setNotificationOpen(true)}sx={{ marginRight: 2 }}>
+              <Badge badgeContent={notificationCount} color="error">
+                <NotificationsNoneIcon />
+              </Badge>
+            </IconButton>
             <HeaderAvatar />
           </Box>
         </Toolbar>
       </AppBar>
+      <Notifications open={notificationOpen} onClose={() => setNotificationOpen(false)} />
     </Box>
   );
 
