@@ -1,8 +1,10 @@
-import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Typography } from "@mui/material";
 
 export default function Notifications(){
 
+  const [open, setOpen] = useState(false);
+  
   return (
     <Box>
       <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "3em"}}>
