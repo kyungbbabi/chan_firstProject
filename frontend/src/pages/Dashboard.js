@@ -63,10 +63,9 @@ export default function Dashboard(){
 
   return (
     <Box sx={{padding: "5em 2em"}}>
-      <Typography variant="h4" gutterBottom align="center">Dashboard</Typography>
       <Grid container justifyContent="center">
         <Grid item xs={12} md={8}>
-          <Tabs value={tabValue} onChange={handleTabChange} centered sx={{ mb: 3 }}>
+          <Tabs value={tabValue} onChange={handleTabChange}  sx={{ mb: 3 }}>
             <Tab label="blog"></Tab>
             <Tab label="portfolio"></Tab>
           </Tabs>
@@ -110,7 +109,7 @@ export default function Dashboard(){
           </Box>
         </Grid>
       </Grid>
-      <Menu anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={handleMenuClose} >
+      <Menu anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={handleMenuClose} anchorOrigin={{ vertical: 'top', horizontal: 'right'}} >
         <MenuItem onClick={handleEdit}>
           <EditIcon sx={{ mr: 1 }} /> 수정
         </MenuItem>
