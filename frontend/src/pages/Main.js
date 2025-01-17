@@ -1,4 +1,4 @@
-import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Grid, Tab, Tabs, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -62,116 +62,113 @@ export default function Main() {
 
   return(
     <Box sx={{ padding: "5em 2em" }}>
-      <Box sx={{ maxWidth: 1200, margin: "0 auto" }}>
-        <Tabs value={tabValue} onChange={handleTabChange} sx={{ mb: 4 }}>
-          <Tab label="전체" />
-          <Tab label="블로그" />
-          <Tab label="포트폴리오" />
-        </Tabs>
-        {tabValue === 0 && (
-          <Box>
-            <Typography variant="h4" sx={{ mb: 4 }}>최근 게시물</Typography>
-            <Grid container spacing={4}> 
-              <Grid item xs={12} md={7}>
-                <Typography variant="h5" sx={{ mb: 3 }}>블로그</Typography>
-                <Grid container spacing={3}>
-                  {blogPosts.map((blog) => (
-                    <Grid item xs={12} key={blog.id}>
-                      <Card onClick={() => handleBlogClick(blog.id)}>
-                        <CardActionArea>
-                          <Box sx={{ display: 'flex' }}>
-                            <CardMedia component="img" sx={{ width: 200, height: 200, objectFit: 'cover' }} image={blog.thumbnail}  alt={blog.title}  />
-                            <CardContent sx={{ flex: 1 }}>
-                              <Typography variant="h6" gutterBottom>
-                                {blog.title}
-                              </Typography>
-                              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                                {blog.summary}
-                              </Typography>
-                              <Typography variant="caption" color="text.secondary">
-                                {blog.date} · 좋아요 {blog.likes} · 댓글 {blog.comments}
-                              </Typography>
-                            </CardContent>
-                          </Box>
-                        </CardActionArea>
-                      </Card>
-                    </Grid>
-                  ))}
-                </Grid>
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <Typography variant="h5" sx={{ mb: 3 }}>포트폴리오</Typography>
-                <Grid container spacing={2}>
-                  {portfolioPosts.map((portfolio) => (
-                    <Grid item xs={12} sm={6} key={portfolio.id}>
-                      <Card onClick={() => handlePortfolioClick(portfolio.id)}>
-                        <CardActionArea>
-                          <CardMedia  component="img"  height="200" image={portfolio.image}  alt={portfolio.title}  />
-                          <CardContent>
-                            <Typography variant="h6" gutterBottom>
-                              {portfolio.title}
-                            </Typography>
-                            <Typography variant="caption" color="text.secondary" display="block">
-                              {portfolio.category}
-                            </Typography>
-                            <Typography variant="caption" color="text.secondary">
-                              {portfolio.date}
-                            </Typography>
-                          </CardContent>
-                        </CardActionArea>
-                      </Card>
-                    </Grid>
-                  ))}
-                </Grid>
-              </Grid>
+    <Box sx={{ maxWidth: 1200, margin: "0 auto" }}>
+      <Tabs value={tabValue} onChange={handleTabChange} sx={{ mb: 4 }}>
+        <Tab label="전체" />
+        <Tab label="블로그" />
+        <Tab label="포트폴리오" />
+      </Tabs>
+      {tabValue === 0 && (
+        <Box>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant="h5" sx={{ mb: 3, pl: 2 }}>블로그</Typography>
             </Grid>
-          </Box>
+            <Grid container item spacing={3} sx={{ mb: 5 }}>
+              {blogPosts.map((blog) => (
+                <Grid item xs={12} md={6} lg={4} key={blog.id}>
+                  <Card sx={{ height: '100%', cursor: 'pointer' }} onClick={() => handleBlogClick(blog.id)}>
+                    <CardMedia component="img" height="200" image={blog.thumbnail} alt={blog.title} />
+                    <CardContent>
+                      <Typography variant="h6" noWrap gutterBottom>
+                        {blog.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary"
+                        sx={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', height: '4.5em' }} >
+                        {blog.summary}
+                      </Typography>
+                    </CardContent>
+                    <Box sx={{ p: 2, mt: 'auto' }}>
+                      <Typography variant="caption" color="text.secondary">
+                        {blog.date} · 좋아요 {blog.likes} · 댓글 {blog.comments}
+                      </Typography>
+                    </Box>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h5" sx={{ mb: 3, pl: 2 }}>포트폴리오</Typography>
+            </Grid>
+            <Grid container item spacing={3}>
+              {portfolioPosts.map((portfolio) => (
+                <Grid item xs={12} md={6} lg={4} key={portfolio.id}>
+                  <Card sx={{ height: '100%', cursor: 'pointer' }} onClick={() => handlePortfolioClick(portfolio.id)}>
+                    <CardMedia component="img" height="200" image={portfolio.image} alt={portfolio.title} />
+                    <CardContent>
+                      <Typography variant="h6" noWrap gutterBottom>
+                        {portfolio.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {portfolio.description}
+                      </Typography>
+                    </CardContent>
+                    <Box sx={{ p: 2, mt: 'auto' }}>
+                      <Typography variant="caption" color="text.secondary">
+                        {portfolio.category} · {portfolio.date}
+                      </Typography>
+                    </Box>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </Box>
         )}
         {tabValue === 1 && (
           <Grid container spacing={3}>
             {blogPosts.map((blog) => (
-              <Grid item xs={12} key={blog.id}>
-                <Card onClick={() => handleBlogClick(blog.id)}>
-                  <CardActionArea>
-                    <Box sx={{ display: 'flex' }}>
-                      <CardMedia component="img" sx={{ width: 200, height: 200, objectFit: 'cover' }} image={blog.thumbnail}  alt={blog.title}  />
-                      <CardContent sx={{ flex: 1 }}>
-                        <Typography variant="h6" gutterBottom>
-                          {blog.title}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                          {blog.summary}
-                        </Typography>
-                        <Typography variant="caption" color="text.secondary">
-                          {blog.date} · 좋아요 {blog.likes} · 댓글 {blog.comments}
-                        </Typography>
-                      </CardContent>
+              <Grid item xs={12} md={6} lg={4} key={blog.id}>
+                <Card sx={{ height: '100%', cursor: 'pointer' }} onClick={() => handleBlogClick(blog.id)}>
+                  <CardMedia component="img" height="200" image={blog.thumbnail} alt={blog.title} />
+                    <CardContent>
+                      <Typography variant="h6" noWrap gutterBottom>
+                        {blog.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary"
+                        sx={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', height: '4.5em' }} >
+                        {blog.summary}
+                      </Typography>
+                    </CardContent>
+                    <Box sx={{ p: 2, mt: 'auto' }}>
+                      <Typography variant="caption" color="text.secondary">
+                        {blog.date} · 좋아요 {blog.likes} · 댓글 {blog.comments}
+                      </Typography>
                     </Box>
-                  </CardActionArea>
                 </Card>
               </Grid>
             ))}
           </Grid>
         )}
         {tabValue === 2 && (
-          <Grid container spacing={5}>
+          <Grid container spacing={3}>
             {portfolioPosts.map((portfolio) => (
-              <Grid item xs={12} sm={6} key={portfolio.id}>
-                <Card onClick={() => handlePortfolioClick(portfolio.id)}>
-                  <CardActionArea>
-                    <CardMedia  component="img"  height="200" image={portfolio.image}  alt={portfolio.title}  />
+              <Grid item xs={12} md={6} lg={4} key={portfolio.id}>
+                <Card sx={{ height: '100%', cursor: 'pointer' }} onClick={() => handlePortfolioClick(portfolio.id)}>
+                  <CardMedia component="img" height="200" image={portfolio.image} alt={portfolio.title} />
                     <CardContent>
-                      <Typography variant="h6" gutterBottom>
+                      <Typography variant="h6" noWrap gutterBottom>
                         {portfolio.title}
                       </Typography>
-                      <Typography variant="caption" color="text.secondary" display="block">
-                        {portfolio.category}
-                      </Typography>
-                      <Typography variant="caption" color="text.secondary">
-                        {portfolio.date}
+                      <Typography variant="body2" color="text.secondary">
+                        {portfolio.description}
                       </Typography>
                     </CardContent>
-                  </CardActionArea>
+                    <Box sx={{ p: 2, mt: 'auto' }}>
+                      <Typography variant="caption" color="text.secondary">
+                        {portfolio.category} · {portfolio.date}
+                      </Typography>
+                    </Box>
                 </Card>
               </Grid>
             ))}
