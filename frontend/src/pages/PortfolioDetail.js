@@ -1,4 +1,4 @@
-import { Box, Grid, ImageList, ImageListItem, ImageListItemBar, ListSubheader, Typography } from "@mui/material";
+import { Box, Grid, ImageList, ImageListItem, ImageListItemBar, Typography } from "@mui/material";
 import React from "react";
 
 export default function PortfolioDetail() {
