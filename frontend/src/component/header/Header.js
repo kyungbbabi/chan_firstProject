@@ -19,7 +19,7 @@ const Header = (props) => {
     navigate('/');
   };
 
-  const handelClickPostWrite = () => {
+  const handleClickPostWrite = () => {
     navigate('/postwrite');
   };
   // blog, portfolio에서 글쓰기 버튼 보이기
@@ -36,7 +36,7 @@ const Header = (props) => {
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             {showPostWriteIcon && (
-              <IconButton color="inherit" onClick={handelClickPostWrite} sx={{ marginRight: 2 }}>
+              <IconButton color="inherit" onClick={handleClickPostWrite} sx={{ marginRight: 2 }}>
                 <PostAddIcon />
               </IconButton>
             )}

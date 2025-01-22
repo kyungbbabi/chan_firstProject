@@ -1,34 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Pagination from "../component/Pagination";
+import axios from "axios";
 
 export default function Blog(){
 
-  // const [blogPosts, setBlogPosts] = useState([]);
-
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   // 로그인된 사용자의 토큰 또는 인증 정보를 사용하여 백엔드 API를 호출
-  //   const token = '유저의_토큰_또는_인증_정보'; // 로그인 시 발급되는 토큰
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const [blogPost, setBlogPost] = useState([]);
 
-  //   // API 호출
-  //   axios.get('https://api.example.com/blog', {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`, // 인증 헤더
-  //     },
-  //   })
-  //   .then((response) => {
-  //     // API 응답 데이터를 상태에 저장
-  //     setBlogPosts(response.data);
-  //   })
-  //   .catch((error) => {
-  //     console.error('블로그 글을 가져오는 중 에러 발생:', error);
-  //   });
-  // }, []);
+  // 페이지당 표시할 아이템 수
+  const itemsPerPage = 8;
 
-  const handelClickBlogDetail = () => {
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts`, {
+          params: {
+            page: currentPage,
+            limit: itemsPerPage
+          }
+        });
+        setBlogPost(response.data.posts);
+        setTotalPage(Math.ceil(response.data.total / itemsPerPage));
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchPosts();
+
+    // 임시 데이터용 (API 연동 전)
+    setTotalPage(Math.ceil(blogPosts.length / itemsPerPage));
+  }, [currentPage]);
+
+  const handleClickBlogDetail = () => {
     navigate("/blogdetail");
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   const blogPosts = [
@@ -50,7 +63,7 @@ export default function Blog(){
         <Grid container spacing={3}>
           {blogPosts.map((post) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={post.id}>
-              <Card sx={{ display: 'flex', flexDirection: 'column', cursor: 'pointer' }} onClick={() => handelClickBlogDetail(post.id)}>
+              <Card sx={{ display: 'flex', flexDirection: 'column', cursor: 'pointer' }} onClick={() => handleClickBlogDetail(post.id)}>
                 <CardMedia component="img" sx={{ objectFit: 'cover' }}  image={post.thumbnail}  alt={post.title}  />
                 <CardContent sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <Typography variant="h6" gutterBottom>
@@ -70,6 +83,7 @@ export default function Blog(){
             </Grid>
           ))}
         </Grid>
+        <Pagination currentPage={currentPage} totalPage={totalPage} onPageChange={handlePageChange} />
       </Box>
     </Box>
   );

@@ -1,13 +1,41 @@
+import React, { useEffect, useState } from "react";
 import { Box, Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
-import React from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Pagination from "../component/Pagination";
 
 export default function Portfolio(){
 
   const navigate = useNavigate();
 
-  const handelClickPortfolioDetail = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const [project, setProject] = useState([]);
+
+  // 페이지당 표시할 아이템 수
+  const itemsPerPage = 8;
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get(`/api/projects?page=${currentPage}&limit=${itemsPerPage}`);
+        setProject(response.data.projects);
+        setTotalPage(Math.ceil(response.data.total / itemsPerPage));
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchProjects();
+
+    setTotalPage(Math.ceil(projects.length / itemsPerPage));
+  }, [currentPage]);
+
+  const handleClickPortfolioDetail = () => {
     navigate('/portfoliodetail');
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   const projects = [
@@ -27,7 +55,7 @@ export default function Portfolio(){
       <Grid container spacing={3}>
         {projects.map((project) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={project.id}>
-            <Card sx={{ height: '100%', cursor: 'pointer' }} onClick={() => handelClickPortfolioDetail(project.id)}>
+            <Card sx={{ height: '100%', cursor: 'pointer' }} onClick={() => handleClickPortfolioDetail(project.id)}>
               <CardMedia component="img" image={project.image} alt={project.title} />
                 <CardContent>
                   <Typography variant="h6" noWrap gutterBottom>
@@ -46,6 +74,7 @@ export default function Portfolio(){
           </Grid>
         ))}
       </Grid>
+      <Pagination currentPage={currentPage} totalPage={totalPage} onPageChange={handlePageChange} />
     </Box>
   </Box>
  );
