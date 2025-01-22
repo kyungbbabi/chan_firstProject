@@ -65,8 +65,8 @@ export default function Main() {
       <Box sx={{ margin: "0 auto" }}>
         <Tabs value={tabValue} onChange={handleTabChange} sx={{ mb: 4 }}>
           <Tab label="전체" />
-          <Tab label="블로그" />
-          <Tab label="포트폴리오" />
+          <Tab label="블로그" /> {/*인기글만*/}
+          <Tab label="포트폴리오" /> {/*인기글만*/}
         </Tabs>
         {tabValue === 0 && (
           <Box>
