@@ -1,5 +1,5 @@
-import { Pagination as MuiPagination, Box, Stack } from "@mui/material";
 import React from "react";
+import { Pagination as MuiPagination, Box, Stack } from "@mui/material";
 
 const Pagination = ({ currentPage, totalPage, onPageChange, color = 'primary', size = 'medium'}) => {
   const handleChange = (event, value) => {

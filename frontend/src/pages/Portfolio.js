@@ -50,8 +50,8 @@ export default function Portfolio(){
   ];
 
  return(
-  <Box sx={{ marginTop:"5em", marginLeft:"3em", marginRight:"3em" }}>
-    <Box sx={{ margin: "0 auto" }}>
+  <Box sx={{ mt:"5em", ml:"3em", mr:"3em" }}>
+    <Box sx={{ m: "0 auto" }}>
       <Grid container spacing={3}>
         {projects.map((project) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={project.id}>

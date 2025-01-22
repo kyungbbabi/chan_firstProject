@@ -9,7 +9,7 @@ export default function Home() {
 
  return (
    <Box
-     sx={{ minHeight: '100vh', width: '100%', margin: 0, padding: 0, overflow: 'hidden', position: 'relative' }}>
+     sx={{ minHeight: '100vh', width: '100%', m: 0, p: 0, overflow: 'hidden', position: 'relative' }}>
      <Container maxWidth="lg" sx={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
        <Box sx={{ textAlign: 'center', mb: 8 }}>
          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} >

@@ -5,6 +5,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
 const ScrollTop = (props) => {
 
   // 다시 해보기!
+  // 페이지 스크롤이 내려갔을 경우에만 생성
   const [show, setShow] = useState(false);
   const [scroll, setScroll] = useState(0);
 

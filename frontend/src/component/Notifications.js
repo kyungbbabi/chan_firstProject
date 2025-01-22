@@ -2,6 +2,8 @@ import { Avatar, Dialog, DialogContent, DialogTitle, List, ListItem, ListItemAva
 
 const Notifications = ({open, onClose}) => {
 
+  // 알람 클릭 시 해당 페이지로 이동
+  // 로그인시 해당 아이콘 생성
   const notifications = [
     {
       id: 1,

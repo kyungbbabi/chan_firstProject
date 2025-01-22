@@ -62,7 +62,7 @@ export default function Dashboard(){
   }, []);
 
   return (
-    <Box sx={{padding: "5em 2em"}}>
+    <Box sx={{ p: "5em 2em" }}>
       <Grid container justifyContent="center">
         <Grid item xs={12} md={8}>
           <Tabs value={tabValue} onChange={handleTabChange}  sx={{ mb: 3 }}>

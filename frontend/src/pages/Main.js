@@ -1,5 +1,5 @@
-import { Box, Card, CardContent, CardMedia, Grid, Tab, Tabs, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { Box, Card, CardContent, CardMedia, Grid, Tab, Tabs, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export default function Main() {

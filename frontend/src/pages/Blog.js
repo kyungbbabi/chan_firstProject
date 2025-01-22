@@ -58,7 +58,7 @@ export default function Blog(){
   ];
 
   return(
-    <Box sx={{ marginTop:"5em", marginLeft:"3em", marginRight:"3em" }}>
+    <Box sx={{ mt:"5em", ml:"3em", mr:"3em" }}>
       <Box sx={{ margin: "0 auto" }}>
         <Grid container spacing={3}>
           {blogPosts.map((post) => (
