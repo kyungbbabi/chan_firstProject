@@ -7,7 +7,7 @@ const api = axios.create({
   headers: {'Content-Type': 'application/json'}
 });
 
-// 요청 인터셉터
+// 요청 인터셉터  - 모든 API 요청 전에 실행되는 미들웨어, 현재는 토큰을 헤더에 추가하는 기능만 구현
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -16,11 +16,12 @@ api.interceptors.request.use(
     }
     return config;
   }, (error) => {
+    console.log(error);
     return Promise.reject(error);
   }
 );
 
-// 응답 인터셉터
+// 응답 인터셉터  현재는 401 에러(인증 실패) 처리만 구현 - 토큰 만료시 로그인 페이지로 리다이렉트
 api.interceptors.request.use(
   (response) => {
     return response;
@@ -29,6 +30,7 @@ api.interceptors.request.use(
       localStorage.removeItem('token'); // 토큰 삭제
       window.location.href = '/login';
     }
+    console.log(error);
     // 다른 에러 처리
     return Promise.reject(error);
   }

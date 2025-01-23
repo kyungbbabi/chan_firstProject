@@ -5,10 +5,12 @@ import { gapi } from 'gapi-script';
 import { Box, Container, Typography, FormControl, InputLabel, Input, FormHelperText, Button, Divider, InputAdornment } from "@mui/material";
 import {store} from '../store/store'
 import {useNavigate} from "react-router-dom";
+import { userAuth } from "../api/user/auth";
 
 export default function Login(props) {
 
-    // state variables to keep track of input field values
+  // state variables to keep track of input field values
+  // forget password 기능 구현
 
   const navigate = useNavigate();  
 
@@ -156,24 +158,14 @@ export default function Login(props) {
     }, []);
     
     const onSuccess = async (response) => {
-      // let body = {
-      //   access_token: response.accessToken,
-      //   id_token: response.tokenId,  
-      // };
-  
-      // await axios
-      //   .post(`${해당 프로젝트의 서버 도메인}/accounts/rest-auth/google/`, body, {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   })
-      //   .then((response) => {
-      //     console.log(response);
-      //     localStorage.setItem("accessToken", response.data.access_token);
-      //     navigate("/");
-      //   })
-      //   .catch((error) => console.log(error));
-    }
+      try {
+        const result = await userAuth.googleLogin(response.tokenId);
+        localStorage.setItem('token', result.data.token);
+        navigate('/');
+      } catch (error) {
+        console.error('Google login failed:', error);
+      }
+    };
 
     const onFailure = (response) => {
       // console.log("error", response);
