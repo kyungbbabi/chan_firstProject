@@ -6,7 +6,7 @@ export const userApi = {
   updatePassword: (data) => api.put('/user/password', data),
   uploadAvatar: (file) => {
     const formData = new FormData();
-    formData.append('avater', file);
+    formData.append('avatar', file);
     return api.post('/user/avatar', formData);
   }
 };

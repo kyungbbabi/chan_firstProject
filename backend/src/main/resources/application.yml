@@ -3,6 +3,14 @@ spring:
     name: chan-firstproject
   profiles:
     active: local
-
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      
 server:
   port: 8080
