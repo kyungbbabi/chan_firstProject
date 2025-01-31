@@ -6,3 +6,33 @@ spring:
     
   jwt:
     secret: 8Zz5tw0Ionm3XPZZfN0NOml3z9FMfmpgXwovR9fp6ryDIoGRM8EPHAB6iHsc0fb
+
+  mail:
+    platforms:
+      gmail:
+        host: smtp.gmail.com
+        port: 587
+        username: ${GMAIL_USERNAME}
+        password: ${GMAIL_PASSWORD}
+      naver:
+        host: smtp.naver.com
+        port: 587
+        username: ${NAVER_USERNAME}
+        password: ${NAVER_PASSWORD}
+      kakao:
+        host: smtp.daum.net
+        port: 465
+        username: ${KAKAO_USERNAME}
+        password: ${KAKAO_PASSWORD}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: your-google-client-id
+            client-secret: your-google-client-secret
+            scope: email, profile
