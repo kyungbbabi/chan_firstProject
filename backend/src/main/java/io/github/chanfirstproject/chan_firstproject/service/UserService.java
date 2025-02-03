@@ -27,6 +27,7 @@ public class UserService {
   private final PasswordEncoder passwordEncoder;
   private final JwtTokenProvider jwtTokenProvider;
   private final JavaMailSender emailSender;
+  private final EmailService emailService;
 
   // 로그인 처리
   public UserDto.Response login(UserDto.LoginRequest request){
@@ -54,7 +55,6 @@ public class UserService {
   // 회원가입 처리
   @Transactional
   public User register(UserDto.RegisterRequest request) {
-    
     // 1. 입력값 검증
     validateRegisterRequest(request);
    
@@ -68,7 +68,7 @@ public class UserService {
       .build();
 
     // 3. 인증 메일 발송
-    sendVerificationEmail(user.getEmail(), user.getEmailVerificationCode());
+    emailService.sendVerificationEmail(user.getEmail(), user.getEmailVerificationCode());
     
     return userRepository.save(user);
   }
@@ -90,7 +90,6 @@ public class UserService {
     message.setSubject("이메일 인증");
     message.setText("인증 코드" + code);
     emailSender.send(message);
-
   }
 
   @Transactional
