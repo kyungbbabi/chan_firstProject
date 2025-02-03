@@ -16,7 +16,8 @@ import io.jsonwebtoken.security.Keys;
 public class JwtTokenProvider {
 
   private final Key key;
-  private long tokenValidityInMilliseconds = 1000L * 60 * 60; // 1시간
+  private final long accessTokenValidityInMilliseconds = 1000L * 60 * 60; // 1시간
+  private final long refreshTokenValidityInMilliseconds = 1000L * 60 * 60; // 1시간
 
   public JwtTokenProvider(JwtProps JwtProps ){
     // secret key를 Base64로 인코딩된 바이트 배열로 변환 후 Key 객체 생성
@@ -26,9 +27,12 @@ public class JwtTokenProvider {
 
   // 토큰 생성 메소드
   public String createToken(String username) {
+    String accessToken = createAccessToken(username);
+    String refreshToken = createRefreshToken(username);
+    
     Claims claims = Jwts.claims().setSubject(username);
     Date now = new Date();
-    Date validity = new Date(now.getTime() + tokenValidityInMilliseconds);
+    Date validity = new Date(now.getTime() + accessTokenValidityInMilliseconds);
 
     return Jwts.builder()
       .setClaims(claims)        // 클레임 설정
