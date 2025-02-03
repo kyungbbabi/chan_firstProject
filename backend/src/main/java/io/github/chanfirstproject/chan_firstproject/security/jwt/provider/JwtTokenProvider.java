@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+import io.github.chanfirstproject.chan_firstproject.dto.TokenDto;
 import io.github.chanfirstproject.chan_firstproject.prop.JwtProps;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -25,22 +26,50 @@ public class JwtTokenProvider {
     this.key = Keys.hmacShaKeyFor(keyBytes);
   }
 
-  // 토큰 생성 메소드
-  public String createToken(String username) {
-    String accessToken = createAccessToken(username);
-    String refreshToken = createRefreshToken(username);
-    
+  public String createAccessToken(String username){
     Claims claims = Jwts.claims().setSubject(username);
     Date now = new Date();
     Date validity = new Date(now.getTime() + accessTokenValidityInMilliseconds);
 
     return Jwts.builder()
-      .setClaims(claims)        // 클레임 설정
-      .setIssuedAt(now)         // 발행시간
-      .setExpiration(validity)  // 만료시간
-      .signWith(key)            // 키로 서명
-      .compact();               // 최종 토큰 생성
+      .setClaims(claims)
+      .setIssuedAt(now)
+      .setExpiration(validity)
+      .signWith(key)
+      .compact();
   }
+
+  private String createRefreshToken(String username) {
+    Claims claims = Jwts.claims().setSubject(username);
+    Date now = new Date();
+    Date validity = new Date(now.getTime() + refreshTokenValidityInMilliseconds);
+
+    return Jwts.builder()
+        .setClaims(claims)
+        .setIssuedAt(now)
+        .setExpiration(validity)
+        .signWith(key)
+        .compact();
+}
+
+public TokenDto createToken(String username){
+  String accessToken = createAccessToken(username);
+  String refreshToken = createRefreshToken(username);
+
+  return new TokenDto(accessToken, refreshToken);
+}
+
+public boolean validateToken(String token){
+  try {
+    Jwts.parserBuilder()
+      .setSigningKey(key)
+      .build()
+      .parseClaimsJws(token);
+    return true;
+  } catch (Exception e) {
+    return false;
+  }
+}
 
   // 토큰에서 사용자명 추출하는 메소드
   public String getUsername(String token) {

@@ -43,7 +43,7 @@ public class UserService {
       throw new BadCredentialsException("잘못된 비밀번호입니다.");
     }
     // 3. JWT토큰 생성
-    String token = jwtTokenProvider.createToken(user.getUsername());
+    String token = jwtTokenProvider.createAccessToken(user.getUsername());
     // 4. 응답 데이터 생성
     return UserDto.Response.builder()
       .accessToken(token)
@@ -156,7 +156,7 @@ public class UserService {
       .id(user.getId())
       .username(user.getUsername())
       .email(user.getEmail())
-      .accessToken(jwtTokenProvider.createToken(user.getUsername()))
+      .accessToken(jwtTokenProvider.createAccessToken(user.getUsername()))
       .build();
   }
  

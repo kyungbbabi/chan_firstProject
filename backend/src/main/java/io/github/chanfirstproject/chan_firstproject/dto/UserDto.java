@@ -37,6 +37,7 @@ public class UserDto {
     private String password;
     private String email;
     private String accessToken;
+    private String refreshToken;
   }
 
 }
