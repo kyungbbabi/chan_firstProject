@@ -36,4 +36,28 @@ api.interceptors.request.use(
   }
 );
 
+api.interceptors.response.use(
+  response => response,
+  async error => {
+    const originalRequest = error.config;
+    if (error.response.state === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      try {
+        const refreshToken = localStorage.getItem('refreshToken');
+        const response = await api.post('/', {refreshToken});
+        const { accessToken } = response.data;
+
+        localStorage.setItem('token', accessToken);
+        originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+
+        return api(originalRequest);
+      } catch (error) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        window.location.href = '/login';
+      }
+    }
+  }
+)
+
 export default api;
