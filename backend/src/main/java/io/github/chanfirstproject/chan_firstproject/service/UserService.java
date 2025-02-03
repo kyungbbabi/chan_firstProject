@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.chanfirstproject.chan_firstproject.domain.User;
+import io.github.chanfirstproject.chan_firstproject.dto.TokenDto;
 import io.github.chanfirstproject.chan_firstproject.dto.UserDto;
 import io.github.chanfirstproject.chan_firstproject.repository.UserRepository;
 import io.github.chanfirstproject.chan_firstproject.security.jwt.provider.JwtTokenProvider;
@@ -43,10 +44,11 @@ public class UserService {
       throw new BadCredentialsException("잘못된 비밀번호입니다.");
     }
     // 3. JWT토큰 생성
-    String token = jwtTokenProvider.createAccessToken(user.getUsername());
+    TokenDto token = jwtTokenProvider.createToken(user.getUsername());
     // 4. 응답 데이터 생성
     return UserDto.Response.builder()
-      .accessToken(token)
+      .accessToken(token.getAccessToken())
+      .refreshToken(token.getRefreshToken())
       .username(user.getUsername())
       .build();
   
