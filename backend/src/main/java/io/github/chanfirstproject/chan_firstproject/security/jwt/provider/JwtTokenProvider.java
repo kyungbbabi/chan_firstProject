@@ -45,31 +45,49 @@ public class JwtTokenProvider {
     Date validity = new Date(now.getTime() + refreshTokenValidityInMilliseconds);
 
     return Jwts.builder()
-        .setClaims(claims)
-        .setIssuedAt(now)
-        .setExpiration(validity)
-        .signWith(key)
-        .compact();
-}
+      .setClaims(claims)
+      .setIssuedAt(now)
+      .setExpiration(validity)
+      .signWith(key)
+      .compact();
+  }
 
-public TokenDto createToken(String username){
-  String accessToken = createAccessToken(username);
-  String refreshToken = createRefreshToken(username);
+  public TokenDto createToken(String username){
+    String accessToken = createAccessToken(username);
+    String refreshToken = createRefreshToken(username);
 
-  return new TokenDto(accessToken, refreshToken);
-}
+    return new TokenDto(accessToken, refreshToken);
+  }
 
-public boolean validateToken(String token){
-  try {
-    Jwts.parserBuilder()
+  public boolean validateToken(String token){
+    try {
+      Jwts.parserBuilder()
+        .setSigningKey(key)
+        .build()
+        .parseClaimsJws(token);
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
+  public Date getExpirationFromToken(String token) {
+    return Jwts.parserBuilder()
       .setSigningKey(key)
       .build()
-      .parseClaimsJws(token);
-    return true;
-  } catch (Exception e) {
-    return false;
+      .parseClaimsJws(token)
+      .getBody()
+      .getExpiration();
   }
-}
+
+  public boolean isTokenExpired(String token) {
+    try {
+        final Date expiration = getExpirationFromToken(token);
+        return expiration.before(new Date());
+    } catch (Exception e) {
+        return true;
+    }
+  }
 
   // 토큰에서 사용자명 추출하는 메소드
   public String getUsername(String token) {

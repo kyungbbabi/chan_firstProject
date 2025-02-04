@@ -33,8 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
     // 2. 토큰 유효성 검사 및 인증 처리
     try {
-      if( token != null && validateToken(token)) {
-        
+      if( token != null && validateToken(token)) {        
         // 토큰에서 사용자 정보 추출
         String username = jwtTokenProvider.getUsername(token);
         // Spring Security 인증 처리
@@ -42,10 +41,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)); // 인증 세부 정보 설정
          // SecurityContext에 Authentication 객체 저장
         SecurityContextHolder.getContext().setAuthentication(authentication);
-      
       }      
     } catch (Exception e) {
-
       SecurityContextHolder.clearContext();
       response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT Token");
       
