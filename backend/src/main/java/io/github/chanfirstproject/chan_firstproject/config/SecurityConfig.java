@@ -12,6 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import io.github.chanfirstproject.chan_firstproject.security.jwt.filter.JwtAuthenticationFilter;
 import io.github.chanfirstproject.chan_firstproject.security.jwt.provider.JwtTokenProvider;
+import io.github.chanfirstproject.chan_firstproject.service.CustomOAuth2UserService;
 
 // SecurityConfig 보완
 
@@ -26,10 +27,12 @@ public class SecurityConfig {
   // JWT 토큰 제공자 주입 필요
   private final JwtTokenProvider jwtTokenProvider;
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
+  private final CustomOAuth2UserService customOAuth2UserService;
 
-  public SecurityConfig(JwtTokenProvider jwtTokenProvider, JwtAuthenticationFilter jwtAuthenticationFilter) {
+  public SecurityConfig(JwtTokenProvider jwtTokenProvider, JwtAuthenticationFilter jwtAuthenticationFilter, CustomOAuth2UserService customOAuth2UserService) {
     this.jwtTokenProvider = jwtTokenProvider;
     this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    this.customOAuth2UserService = customOAuth2UserService;
   }
 
   @Bean
@@ -60,6 +63,14 @@ public class SecurityConfig {
         response.sendError(403, "접근권한이 없습니다.");
       })
     );
+
+    http.oauth2Login(oauth2 -> 
+    oauth2
+        .userInfoEndpoint(userInfo -> 
+            userInfo.userService(customOAuth2UserService)
+        )
+);
+
 
     return http.build();
   }
