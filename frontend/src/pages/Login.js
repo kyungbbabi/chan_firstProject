@@ -196,7 +196,7 @@ export default function Login(props) {
     <Container sx={{display:"flex", justifyContent:"center", alignItems:"center", height:"100vh" }}>
       <Box sx={{position:"relative", display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
         {imageUrl && <img src={imageUrl} alt="Unsplash" style={{ width: '800px', height: '600px' }} />}
-        <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%", backgroundColor:"wheat"}}>
+        <Box sx={{position:"absolute", display:"flex", justifyContent:"center", alignItems:"center", right:0, backgroundColor:"white", width:"50%", height:"100%" }}>
           <Box sx={{display:"flex", flexDirection:"column"}}>
               <Typography variant="h5" gutterBottom align="center">
                 Sign in
