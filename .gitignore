@@ -21,7 +21,7 @@ backend/!gradle/wrapper/gradle-wrapper.jar
 backend/*.class
 backend/src/main/resources/application-local.yml
 backend/src/main/resources/application-prod.yml
-backend/.env
+backend/.env`
 
 # IDE
 .idea/
