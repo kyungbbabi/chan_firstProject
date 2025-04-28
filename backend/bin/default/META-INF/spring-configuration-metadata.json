@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "spring.jwt",
+      "type": "io.github.chanfirstproject.chan_firstproject.prop.JwtProps",
+      "sourceType": "io.github.chanfirstproject.chan_firstproject.prop.JwtProps"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.jwt.secret",
+      "type": "java.lang.String",
+      "sourceType": "io.github.chanfirstproject.chan_firstproject.prop.JwtProps"
+    }
+  ],
+  "hints": []
+}
