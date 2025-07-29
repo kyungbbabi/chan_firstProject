@@ -6,6 +6,18 @@ import axios from "axios";
 
 export default function Blog(){
 
+  // useEffect(() => {
+  //   const testAPI = async () => {
+  //     try {
+  //       const response = await axios.get("/api/test");
+  //       console.log('connected',response.data);
+  //     } catch(e) {
+  //       console.error('connection failed', e);
+  //     }
+  //   }
+  //   testAPI();
+  // }, []);
+
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,27 +26,6 @@ export default function Blog(){
 
   // 페이지당 표시할 아이템 수
   const itemsPerPage = 8;
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts`, {
-          params: {
-            page: currentPage,
-            limit: itemsPerPage
-          }
-        });
-        setBlogPost(response.data.posts);
-        setTotalPage(Math.ceil(response.data.total / itemsPerPage));
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-    fetchPosts();
-
-    // 임시 데이터용 (API 연동 전)
-    setTotalPage(Math.ceil(blogPosts.length / itemsPerPage));
-  }, [currentPage]);
 
   const handleClickBlogDetail = () => {
     navigate("/blogdetail");
@@ -56,6 +47,7 @@ export default function Blog(){
       comments: 5
     }
   ];
+
 
   return(
     <Box sx={{ mt:"5em", ml:"3em", mr:"3em" }}>
