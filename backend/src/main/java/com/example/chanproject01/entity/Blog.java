@@ -26,9 +26,16 @@ public class Blog {
     private LocalDateTime date;
     private Integer likes;
     private Integer comments;
+    private String thumbnailUrl;
+
+    // 본문 이미지(상세 페이지) - JSON 형태로 여러 이미지 경로 저장
+    @Column(columnDefinition = "TEXT")
+    private String contentImages;
 
     @PrePersist
     protected void onCreate() {
         date = LocalDateTime.now();
+        if(likes == null) likes = 0;
+        if(comments == null) comments = 0;
     }
 }

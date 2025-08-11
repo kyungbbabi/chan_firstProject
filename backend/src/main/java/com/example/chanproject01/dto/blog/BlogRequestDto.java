@@ -14,4 +14,5 @@ public class BlogRequestDto {
     private String summary;
     private String content;
     private String author;
+    private String thumbnailUrl;
 }

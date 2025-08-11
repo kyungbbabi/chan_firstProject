@@ -13,6 +13,7 @@ import java.util.List;
 @Builder
 public class BlogPageResponseDto {
     private List<BlogResponseDto> posts;    // 실제 블로그 목록
+    private List<BlogResponseDto> thumbnailUrl;
     private Long totalPosts;
     private Integer currentPage;
     private Integer totalPages;

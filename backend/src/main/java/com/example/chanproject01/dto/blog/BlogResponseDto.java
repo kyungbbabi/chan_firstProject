@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -17,6 +18,8 @@ public class BlogResponseDto {
     private String summary;
     private String content;
     private String author;
+    private String thumbnailUrl;
+    private List<String> contentImages;
     private LocalDateTime date;
     private Integer likes;
     private Integer comments;
