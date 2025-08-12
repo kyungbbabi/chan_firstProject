@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,4 +17,5 @@ public class BlogRequestDto {
     private String content;
     private String author;
     private String thumbnailUrl;
+    private List<String> contentImageUrls;
 }

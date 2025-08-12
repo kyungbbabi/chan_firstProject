@@ -5,6 +5,9 @@ import com.example.chanproject01.dto.blog.BlogRequestDto;
 import com.example.chanproject01.dto.blog.BlogResponseDto;
 import com.example.chanproject01.entity.Blog;
 import com.example.chanproject01.repository.BlogRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +25,7 @@ import java.util.stream.Collectors;
 public class BlogService {
 
     private final BlogRepository blogRepository;
+    private final ObjectMapper objectMapper;
 
     @Transactional(readOnly = true)
     public BlogPageResponseDto getPosts(int page, int size) {
@@ -51,22 +56,27 @@ public class BlogService {
 
     public BlogResponseDto createPost(BlogRequestDto blogRequestDto) {
 
+        String contentImagesJson = convertListToJson(blogRequestDto.getContentImageUrls());
         Blog blog = Blog.builder()
                 .title(blogRequestDto.getTitle())
                 .summary(blogRequestDto.getSummary())
                 .content(blogRequestDto.getContent())
                 .author(blogRequestDto.getAuthor())
+                .thumbnailUrl(blogRequestDto.getThumbnailUrl())
+                .contentImages(contentImagesJson)
                 .likes(0)
                 .comments(0)
                 .build();
 
         Blog savedBlog = blogRepository.save(blog);
         return convertToResponseDto(savedBlog);
+
     }
 
     public BlogResponseDto updatePost(Long id, BlogRequestDto blogRequestDto) {
 
         Blog blog = blogRepository.findById(id).orElseThrow(() -> new RuntimeException("Blog not found" + id));
+        String contentImagesJson = convertListToJson(blogRequestDto.getContentImageUrls());
         Blog updatedBlog = Blog.builder()
                 .id(blog.getId())
                 .title(blogRequestDto.getTitle())
@@ -74,6 +84,8 @@ public class BlogService {
                 .content(blogRequestDto.getContent())
                 .author(blog.getAuthor())
                 .date(blog.getDate())
+                .thumbnailUrl(blog.getThumbnailUrl())
+                .contentImages(contentImagesJson)
                 .likes(blog.getLikes())
                 .comments(blog.getComments())
                 .build();
@@ -94,6 +106,8 @@ public class BlogService {
     }
 
     public BlogResponseDto convertToResponseDto(Blog blog) {
+
+        List<String> contentImages = convertJsonToList(blog.getContentImages());
         return BlogResponseDto.builder()
                 .id(blog.getId())
                 .title(blog.getTitle())
@@ -101,8 +115,32 @@ public class BlogService {
                 .content(blog.getContent())
                 .author(blog.getAuthor())
                 .date(blog.getDate())
+                .thumbnailUrl(blog.getThumbnailUrl())
+                .contentImages(contentImages)
                 .likes(blog.getLikes())
                 .comments(blog.getComments())
                 .build();
+    }
+
+    private String convertListToJson(List<String> list) {
+        if(list == null || list.isEmpty()) {
+            return "[]";
+        }
+        try {
+            return objectMapper.writeValueAsString(list);
+        } catch (JsonProcessingException e) {
+            return "[]";
+        }
+    }
+
+    private List<String> convertJsonToList(String json) {
+        if (json == null || json.isEmpty()) {
+            return new ArrayList<>();
+        }
+        try {
+            return objectMapper.readValue(json, new TypeReference<List<String>>() {});
+        } catch (JsonProcessingException e) {
+            return new ArrayList<>();
+        }
     }
 }
