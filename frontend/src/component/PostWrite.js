@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import {Box, Button, Card, CardMedia, CircularProgress, Paper, TextField, Typography} from "@mui/material";
 import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import api from "../api";
 import {blogApi} from "../api/user/blog";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { store } from "../store/store";
 
 const PostWrite = () => {
+
+  const [state, dispatch] = useContext(store);
 
   const [title, setTitle] = useState('');
   const [summary, setSummary] = useState('');
   const [content, setContent] = useState('');
-  const [author, setAuthor] = useState('');
+  const [author, setAuthor] = useState(state.user?.name);
   const [thumbnailImage, setThumbnailImage] = useState(null);
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const [thumbnailUrl, setThumbnailUrl] = useState('');
@@ -60,13 +63,13 @@ const PostWrite = () => {
 
   /* 썸네일 업로드 */
   const uploadThumbnail = async () => {
-    if (thumbnailUrl) return;
+    if (!thumbnailImage || thumbnailUrl) return;
     setThumbnailUploading(true);
     setError('');
 
     try {
       const formData = new FormData();
-      formData.append('file', thumbnailUrl);
+      formData.append('file', thumbnailImage);
       const response = await api.post('/api/blog/upload/thumbnail', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
@@ -158,7 +161,7 @@ const PostWrite = () => {
       const uploadContentUrls = await uploadContentImage(); // 2. 본문 이미지가 있는 경우 업로드
       const blogData = {
         title: title.trim(),
-        summary: summary.trim() || content.trim(0, 100) + '...',
+        summary: summary.trim() || content.trim().toString(0, 100) + '...',
         content: content.trim(),
         author: author,
         thumbnailUrl: thumbnailUrl,

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
+import { store } from "./store/store";
+import { userApi } from "./api/user";
 import { BrowserRouter as BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -17,7 +19,28 @@ import Profile from "./pages/Profile";
 
 
 function App() {
-  
+
+  const [state, dispatch] = useContext(store);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem("token");
+      if (token && !state.user.id) {
+        try {
+          const response = await userApi.getProfile();
+          dispatch({
+            type: 'user',
+            payload: response.data
+          });
+        } catch (e) {
+          localStorage.removeItem("token");
+          console.log('토큰 검증 실패', e);
+        }
+      }
+    };
+    checkAuth();
+  }, []);
+
   return (
     <BrowserRouter>
       <Header/>

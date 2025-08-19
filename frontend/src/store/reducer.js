@@ -2,6 +2,8 @@ export default function reducer(state, action) {
   switch (action.type) {
     case 'User':
       return { ...state, user: action.payload };
+    case 'Logout':
+      return { ...state, user: {email: undefined, id: 0} };
     case 'OpenLoading':
       return {...state, loading: {open: true, message: action.payload}};
     case 'CloseLoading':

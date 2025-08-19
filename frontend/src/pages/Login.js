@@ -69,7 +69,15 @@ export default function Login(props) {
         if (res.status === 200) { // 응답 상태 코드가 200이면 로그인 성공으로 간주합니다.
           localStorage.setItem('token', res.data.token);
           // navigate(-1);
-          dispatch({type: 'OpenSnackbar', payload: `로그인되었습니다.`});
+          dispatch({
+            type: 'User',
+            payload: {
+              id: res.data.user.id,
+              email: res.data.user.email,
+              password: res.data.user.password,
+              // 기타 사용자 정보...
+            }
+          });
         }   // res.data.token을 로컬 스토리지에 저장합니다. // navigate(-1)을 호출하여 이전 페이지로 이동합니다. //  OpenSnackbar 액션을 통해 "로그인되었습니다."라는 메시지를 표시합니다.
         else {
           setAuth(true); //  응답 상태 코드가 200이 아닌 경우, setAuth(true)를 호출하여 인증 실패 상태를 설정합니다.

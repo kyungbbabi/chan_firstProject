@@ -36,6 +36,7 @@ const HeaderAvatar = () => {
         break;
       case 'Logout':
         localStorage.removeItem('token');
+        dispatch({type: 'Logout'});
         navigate('/login');
         break;
       default:
