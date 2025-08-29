@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import { Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom";
+import { store } from "../../store/store";
 
 const HeaderAvatar = () => {
-  
+
   const navigate = useNavigate();
+  const [state, dispatch] = useContext(store);
 
   const settings = [
     { label: 'Profile', action: () => handleMenuItemClick('Profile') },

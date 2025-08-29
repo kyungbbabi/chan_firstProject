@@ -24,11 +24,11 @@ export default function Blog(){
         setLoading(true);
         setError(null);
         const res = await blogApi.getPosts({
-          page: currentPage,
+          page: currentPage - 1,
           size: itemsPerPage
         });
         setBlogPost(res.data.posts);
-        setTotalPage(res.data.total);
+        setTotalPage(res.data.totalPages);
       } catch (e) {
         setError('블로그 포스트를 불러오는데 실패했습니다.');
       } finally {
@@ -39,8 +39,8 @@ export default function Blog(){
     getBlogPosts();
   }, [currentPage]);
 
-  const handleClickBlogDetail = () => {
-    navigate("/blogdetail");
+  const handleClickBlogDetail = (postId) => {
+    navigate(`/blogdetail/${postId}`);
   };
 
   const handlePageChange = (page) => {
