@@ -1,7 +1,6 @@
 package com.example.chanproject01.entity;
 
 import jakarta.persistence.*;
-import jdk.jfr.ContentType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
