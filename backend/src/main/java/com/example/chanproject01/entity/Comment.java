@@ -1,7 +1,6 @@
 package com.example.chanproject01.entity;
 
 import jakarta.persistence.*;
-import jdk.jfr.ContentType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,10 +29,7 @@ public class Comment {
     private ContentType contentType;
 
     private Long contentId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
-    private Comment parent;
+    private Long mentionedUserId; // @태그된 사용자 ID
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
