@@ -28,7 +28,9 @@ public class Like {
     @Column(nullable = false)
     private ContentType contentType;
 
+    @Column(nullable = false)
     private Long contentId;
+
     private LocalDateTime createdAt;
 
     @PrePersist
@@ -37,7 +39,7 @@ public class Like {
     }
 
     public enum ContentType {
-        Blog, PORTFOLIO
+        BLOG, PORTFOLIO
     }
 
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table
+@Table(name = "comment")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -46,7 +46,7 @@ public class Comment {
     }
 
     public enum ContentType {
-        Blog, PORTFOLIO
+        BLOG, PORTFOLIO
     }
 
 }
