@@ -24,7 +24,7 @@ public class CommentService {
     public CommentResponseDto createComment(CommentRequestDto requestDto, Long userId) {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
-        Comment.ContentType contentType = Comment.ContentType.valueOf(requestDto.getContentType());
+        Comment.ContentType contentType = Comment.ContentType.valueOf(requestDto.getContentType().toUpperCase());
 
         Comment comment = Comment.builder()
                 .content(requestDto.getContent())
@@ -42,7 +42,7 @@ public class CommentService {
     @Transactional(readOnly = true)
     public List<CommentResponseDto> getComments(String contentType, Long contentId ,Long userId) {
 
-        Comment.ContentType type = Comment.ContentType.valueOf(contentType);
+        Comment.ContentType type = Comment.ContentType.valueOf(contentType.toUpperCase());
         List<Comment> comments = commentRepository.findByContentTypeAndContentIdOrderByCreatedAtAsc(type, contentId);
 
         return comments.stream()
@@ -84,7 +84,7 @@ public class CommentService {
     @Transactional(readOnly = true)
     public long getCommentCount(String contentType, Long contentId) {
 
-        Comment.ContentType type = Comment.ContentType.valueOf(contentType);
+        Comment.ContentType type = Comment.ContentType.valueOf(contentType.toUpperCase());
         return commentRepository.countByContentTypeAndContentId(type, contentId);
 
     }
